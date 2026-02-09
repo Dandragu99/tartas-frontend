@@ -1,0 +1,26 @@
+{
+  "angular-schematics.schematicsDefaultOptions": {
+    "angular-component": {
+      "skipChangeDetectionOnPush": true
+    },
+    "angular-*": {
+      "skipStyle": true,
+      "externalTemplate": true
+    },
+    "angular-page": {
+      "skipChangeDetectionOnPush": true
+    }
+  },
+  "tailwindCSS.experimental.classRegex": [
+    "class:\\s*['\"]([^'\"]*)['\"]",
+    "\\[class\\.([^\\]]+)\\]",
+    "@apply\\s+([^;]+)",
+    "className\\s*=\\s*['\"]([^'\"]*)['\"]"
+  ],
+  "tailwindCSS.includeLanguages": {
+    "html": "html",
+    "typescript": "typescript"
+  },
+  "css.validate": false,
+  "tailwindCSS.validate": true
+}

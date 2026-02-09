@@ -1,0 +1,12 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "tailwindcss";
+/* DaisyUI con temas */
+@plugin "daisyui" {
+  themes: luxury --default, dark --prefersdark;
+}
+
+.mapboxgl-marker {
+  width: 30px;
+  height: 30px;
+}

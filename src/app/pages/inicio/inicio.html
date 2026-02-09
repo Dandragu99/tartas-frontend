@@ -1,0 +1,102 @@
+<!-- tarta -->
+<div class="tarta bg-base-200 py-20 ">
+  <div class="tarta-content text-center flex justify-center">
+    <div class="max-w-2xl">
+      <h1 class="text-5xl font-bold text-primary ">
+        Diseña la tarta de tus sueños
+      </h1>
+      <p class="py-6 text-base-content/70">
+        Elige una de nuestras bases artesanales y personaliza cada detalle.
+      </p>
+      <button
+       routerLink="/catalogo"
+       class="btn btn-primary btn-lg rounded-full">
+        Ver catálogo
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- CATÁLOGO -->
+<main class="container mx-auto py-12 px-4">
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    @for (tarta of productos(); track tarta.id) {
+      <div class="card bg-base-100 shadow-md hover:shadow-xl transition">
+        <!-- IMAGEN Y SLIDER -->
+        <div class="relative h-56 overflow-hidden">
+          <img
+            [src]="getImagen(tarta)"
+            class="w-full h-full object-contain bg-base-200 transition-all duration-300"
+            alt="Tarta" />
+
+
+          <button
+            (click)="cambiarImagen(tarta, -1)"
+            class="btn btn-circle btn-sm absolute left-2 top-1/2 -translate-y-1/2 bg-base-100/80 backdrop-blur">
+            ❮
+          </button>
+
+
+          <button
+            (click)="cambiarImagen(tarta, 1)"
+            class="btn btn-circle btn-sm absolute right-2 top-1/2 -translate-y-1/2 bg-base-100/80 backdrop-blur">
+            ❯
+          </button>
+
+          <div class="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2">
+            @for (i of [0,1,2]; track i) {
+              <span
+                class="w-2 h-2 rounded-full"
+                [class.bg-primary]="imagenActual()[tarta.id] === i"
+                [class.bg-base-content/30]="imagenActual()[tarta.id] !== i">
+              </span>
+            }
+          </div>
+        </div>
+
+        <!-- CONTENIDO -->
+        <div class="card-body p-4">
+          <h4 class="card-title text-base">
+            {{ tarta.nombre }}
+          </h4>
+
+          <button
+            (click)="irAConfigurar(tarta.id)"
+            class="btn btn-primary btn-sm w-full rounded-full">
+            Personalizar
+          </button>
+        </div>
+      </div>
+    }
+  </div>
+</main>
+
+<div class="divider max-w-4xl mx-auto my-8"></div>
+<section class="py-16 bg-base-200">
+  <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-8 items-center">
+
+    <div>
+      <h2 class="text-3xl font-serif font-bold mb-4">
+        📍 Dónde estamos
+      </h2>
+      <p class="mb-4">
+        Visítanos en nuestra tienda física y descubre nuestras tartas artesanas.
+      </p>
+
+      <p class="font-semibold">
+        Calle Ficticia 123, Madrid
+      </p>
+
+      <a
+        href="https://maps.google.com/?q=Calle+Ficticia+123+Madrid"
+        target="_blank"
+        class="btn btn-outline btn-primary mt-4">
+        Ver en Google Maps
+      </a>
+    </div>
+
+    <div id="map" class="relative h-72 w-full rounded-xl shadow overflow-hidden"></div>
+
+  </div>
+</section>
+

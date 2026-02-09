@@ -1,0 +1,53 @@
+
+<!-- CATÁLOGO -->
+<main class="container mx-auto py-12 px-4">
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    @for (tarta of productos(); track tarta.id) {
+      <div class="card bg-base-100 shadow-md hover:shadow-xl transition">
+        <!-- IMAGEN Y SLIDER -->
+        <div class="relative h-56 overflow-hidden">
+          <img
+            [src]="getImagen(tarta)"
+            class="w-full h-full transition-all duration-300"
+            alt="Tarta" />
+
+          <!-- Flecha izquierda -->
+          <button
+            (click)="cambiarImagen(tarta, -1)"
+            class="btn btn-circle btn-sm absolute left-2 top-1/2 -translate-y-1/2 bg-base-100/80 backdrop-blur">
+            ❮
+          </button>
+
+          <!-- Flecha derecha -->
+          <button
+            (click)="cambiarImagen(tarta, 1)"
+            class="btn btn-circle btn-sm absolute right-2 top-1/2 -translate-y-1/2 bg-base-100/80 backdrop-blur">
+            ❯
+          </button>
+          <!-- Indicadores -->
+          <div class="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2">
+            @for (i of [0,1,2]; track i) {
+              <span
+                class="w-2 h-2 rounded-full"
+                [class.bg-primary]="imagenActual()[tarta.id] === i"
+                [class.bg-base-content/30]="imagenActual()[tarta.id] !== i">
+              </span>
+            }
+          </div>
+        </div>
+
+        <!-- CONTENIDO -->
+        <div class="card-body p-4">
+          <h4 class="card-title text-base">
+            {{ tarta.nombre }}
+          </h4>
+
+          <button
+            (click)="irAConfigurar(tarta.id)"
+            class="btn btn-primary btn-sm w-full rounded-full">
+            Personalizar
+          </button>
+        </div>
+      </div>
+    }
+  </div>
