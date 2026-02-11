@@ -17,6 +17,55 @@
   </div>
 </div>
 
+<!-- CÓMO FUNCIONA -->
+<section class="py-16 bg-base-100">
+  <div class="max-w-6xl mx-auto px-6">
+    <h2 class="text-4xl font-bold text-center mb-4">
+      ¿Cómo funciona?
+    </h2>
+    <p class="text-center text-base-content/70 mb-12 max-w-2xl mx-auto">
+      Crear tu tarta perfecta es muy sencillo. Solo sigue estos pasos:
+    </p>
+
+    <div class="grid md:grid-cols-3 gap-8">
+      <!-- Paso 1 -->
+      <div class="text-center">
+        <div class="w-20 h-20 rounded-full bg-primary/20 flex items-center justify-center mx-auto mb-4">
+          <span class="text-3xl font-bold text-primary">1</span>
+        </div>
+        <h3 class="text-xl font-semibold mb-2">Elige tu base</h3>
+        <p class="text-base-content/70">
+          Selecciona entre nuestras deliciosas bases artesanales: bizcocho, brownie, red velvet y más.
+        </p>
+      </div>
+
+      <!-- Paso 2 -->
+      <div class="text-center">
+        <div class="w-20 h-20 rounded-full bg-primary/20 flex items-center justify-center mx-auto mb-4">
+          <span class="text-3xl font-bold text-primary">2</span>
+        </div>
+        <h3 class="text-xl font-semibold mb-2">Personaliza</h3>
+        <p class="text-base-content/70">
+          Elige el relleno, cobertura, decoración y tamaño. ¡Hazla única!
+        </p>
+      </div>
+
+      <!-- Paso 3 -->
+      <div class="text-center">
+        <div class="w-20 h-20 rounded-full bg-primary/20 flex items-center justify-center mx-auto mb-4">
+          <span class="text-3xl font-bold text-primary">3</span>
+        </div>
+        <h3 class="text-xl font-semibold mb-2">Recoge o recibe</h3>
+        <p class="text-base-content/70">
+          Recoge tu pedido en tienda o recíbelo en casa. ¡Listo para disfrutar!
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
 <!-- CATÁLOGO -->
 <main class="container mx-auto py-12 px-4">
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -26,7 +75,7 @@
         <div class="relative h-56 overflow-hidden">
           <img
             [src]="getImagen(tarta)"
-            class="w-full h-full object-contain bg-base-200 transition-all duration-300"
+            class="w-full h-full  bg-base-200 transition-all duration-300"
             alt="Tarta" />
 
 
@@ -71,6 +120,141 @@
   </div>
 </main>
 
+<!-- POR QUÉ ELEGIRNOS -->
+<section class="py-16 bg-base-200">
+  <div class="max-w-6xl mx-auto px-6">
+    <h2 class="text-4xl font-bold text-center mb-12">
+      ¿Por qué Ana's Bakery?
+    </h2>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="text-center p-6">
+        <div class="text-5xl mb-4">🎂</div>
+        <h3 class="font-semibold text-lg mb-2">100% Artesanal</h3>
+        <p class="text-sm text-base-content/70">
+          Cada tarta es hecha a mano con dedicación y cariño
+        </p>
+      </div>
+
+      <div class="text-center p-6">
+        <div class="text-5xl mb-4">🥚</div>
+        <h3 class="font-semibold text-lg mb-2">Ingredientes Premium</h3>
+        <p class="text-sm text-base-content/70">
+          Seleccionamos los mejores ingredientes naturales
+        </p>
+      </div>
+
+      <div class="text-center p-6">
+        <div class="text-5xl mb-4">✨</div>
+        <h3 class="font-semibold text-lg mb-2">Personalización Total</h3>
+        <p class="text-sm text-base-content/70">
+          Diseña la tarta exactamente como la imaginas
+        </p>
+      </div>
+
+      <div class="text-center p-6">
+        <div class="text-5xl mb-4">🚚</div>
+        <h3 class="font-semibold text-lg mb-2">Entrega Rápida</h3>
+        <p class="text-sm text-base-content/70">
+          Recibe tu pedido en 24-48h o recógelo en tienda
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIOS -->
+<section class="py-16 bg-base-100">
+  <div class="max-w-6xl mx-auto px-6">
+    <h2 class="text-4xl font-bold text-center mb-12">
+      Lo que dicen nuestros clientes
+    </h2>
+
+    <div class="grid md:grid-cols-3 gap-6">
+      <!-- Testimonio 1 -->
+      <div class="card bg-base-200 shadow-lg">
+        <div class="card-body">
+          <div class="flex gap-1 mb-3">
+            <span class="text-warning">⭐</span>
+            <span class="text-warning">⭐</span>
+            <span class="text-warning">⭐</span>
+            <span class="text-warning">⭐</span>
+            <span class="text-warning">⭐</span>
+          </div>
+          <p class="text-base-content/80 mb-4">
+            "La tarta de cumpleaños que pedí superó todas mis expectativas. ¡Deliciosa y preciosa!"
+          </p>
+          <div class="flex items-center gap-3">
+            <div class="avatar placeholder">
+              <div class="bg-primary text-primary-content rounded-full w-10">
+                <span class="text-lg">M</span>
+              </div>
+            </div>
+            <div>
+              <p class="font-semibold">María García</p>
+              <p class="text-sm text-base-content/60">Cliente verificada</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Testimonio 2 -->
+      <div class="card bg-base-200 shadow-lg">
+        <div class="card-body">
+          <div class="flex gap-1 mb-3">
+            <span class="text-warning">⭐</span>
+            <span class="text-warning">⭐</span>
+            <span class="text-warning">⭐</span>
+            <span class="text-warning">⭐</span>
+            <span class="text-warning">⭐</span>
+          </div>
+          <p class="text-base-content/80 mb-4">
+            "Pedimos tartas para nuestra boda. Increíbles tanto en sabor como en presentación. 100% recomendable."
+          </p>
+          <div class="flex items-center gap-3">
+            <div class="avatar placeholder">
+              <div class="bg-primary text-primary-content rounded-full w-10">
+                <span class="text-lg">J</span>
+              </div>
+            </div>
+            <div>
+              <p class="font-semibold">Javier Ruiz</p>
+              <p class="text-sm text-base-content/60">Cliente verificado</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Testimonio 3 -->
+      <div class="card bg-base-200 shadow-lg">
+        <div class="card-body">
+          <div class="flex gap-1 mb-3">
+            <span class="text-warning">⭐</span>
+            <span class="text-warning">⭐</span>
+            <span class="text-warning">⭐</span>
+            <span class="text-warning">⭐</span>
+            <span class="text-warning">⭐</span>
+          </div>
+          <p class="text-base-content/80 mb-4">
+            "Atención personalizada y un producto artesanal de calidad. Volveré sin duda."
+          </p>
+          <div class="flex items-center gap-3">
+            <div class="avatar placeholder">
+              <div class="bg-primary text-primary-content rounded-full w-10">
+                <span class="text-lg">L</span>
+              </div>
+            </div>
+            <div>
+              <p class="font-semibold">Laura Martínez</p>
+              <p class="text-sm text-base-content/60">Cliente verificada</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <div class="divider max-w-4xl mx-auto my-8"></div>
 <section class="py-16 bg-base-200">
   <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-8 items-center">
@@ -97,6 +281,26 @@
 
     <div id="map" class="relative h-72 w-full rounded-xl shadow overflow-hidden"></div>
 
+  </div>
+</section>
+
+<!-- CALL TO ACTION -->
+<section class="py-20 bg-linear-to-r from-primary/10 to-secondary/10">
+  <div class="max-w-4xl mx-auto px-6 text-center">
+    <h2 class="text-4xl font-bold mb-4">
+      ¿Listo para crear tu tarta perfecta?
+    </h2>
+    <p class="text-lg text-base-content/70 mb-8">
+      Empieza ahora y sorprende a tus seres queridos con una tarta única y deliciosa
+    </p>
+    <div class="flex flex-wrap gap-4 justify-center">
+      <button routerLink="/catalogo" class="btn btn-primary btn-lg rounded-full">
+        Ver catálogo completo
+      </button>
+      <button routerLink="/personalizar" class="btn btn-outline btn-lg rounded-full">
+        Personalizar ahora
+      </button>
+    </div>
   </div>
 </section>
 
