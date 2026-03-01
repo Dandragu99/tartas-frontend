@@ -6,10 +6,35 @@
       <p class="text-base-content/70">Crea la tarta perfecta para tu ocasión especial</p>
     </div>
 
+    @if (tarta()) {
+      <div class="card bg-base-100 shadow-xl mb-8 max-w-2xl mx-auto">
+        <div class="card-body">
+          <div class="flex items-center gap-6">
+            <div class="avatar">
+              <div class="w-64 h-64 rounded-xl flex items-center justify-center">
+                <img [src]="tarta()?.imgPaso1" [alt]="tarta()?.nombre" class="object-contain max-h-full max-w-full" />
+              </div>
+            </div>
+
+            <div class="flex-1">
+              <h2 class="text-2xl font-bold mb-2">{{ tarta()?.nombre }}</h2>
+              <p class="text-base-content/70 mb-3">{{ tarta()?.descripcion }}</p>
+              <div class="badge badge-primary badge-lg">
+                Precio base: {{ tarta()?.precioBase }}€
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+
+    <!-- Grid principal de 2 columnas -->   
     <div class="grid lg:grid-cols-3 gap-6">
 
+      <!-- COLUMNA IZQUIERDA: Configuración (2/3) -->
       <div class="lg:col-span-2 space-y-6">
-<!--  1: Elige Bizcoxho -->
+
+        <!-- 1: Elige Bizcocho -->
         <div class="card bg-base-100 shadow-lg">
           <div class="card-body">
             <h2 class="card-title text-2xl mb-4">
@@ -43,7 +68,7 @@
           </div>
         </div>
 
-        <!--  2: Relleno -->
+        <!-- 2: Relleno -->
         <div class="card bg-base-100 shadow-lg">
           <div class="card-body">
             <h2 class="card-title text-2xl mb-4">
@@ -69,7 +94,7 @@
           </div>
         </div>
 
-        <!--3: Cobertura -->
+        <!-- 3: Cobertura -->
         <div class="card bg-base-100 shadow-lg">
           <div class="card-body">
             <h2 class="card-title text-2xl mb-4">
@@ -171,7 +196,7 @@
           </div>
         </div>
 
-        <!-- PASO 6: Personalización -->
+        <!-- 6: Personalización -->
         <div class="card bg-base-100 shadow-lg">
           <div class="card-body">
             <h2 class="card-title text-2xl mb-4">
@@ -368,6 +393,7 @@
             </div>
           </div>
 
+          <!-- Info adicional -->
           <div class="card bg-base-100 shadow-lg">
             <div class="card-body p-4">
               <div class="flex items-start gap-3">
@@ -384,5 +410,7 @@
       </div>
 
     </div>
+    <!-- Cierre del grid principal -->
+
   </div>
 </div>

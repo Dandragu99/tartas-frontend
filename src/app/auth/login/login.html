@@ -23,16 +23,18 @@
           Bienvenido de vuelta
         </h2>
 
-        <form class="space-y-5">
+        <form class="space-y-5" (ngSubmit) = "login()">
           <!-- Email -->
           <div class="form-control">
             <label class="label">
-              <span class="label-text font-medium">Correo electrónico</span>
+              <span class="label-text font-medium">Usuario: </span>
             </label>
             <input
-              type="email"
-              placeholder="tu@email.com"
-              class="input input-bordered w-full focus:input-primary transition-all"
+              type="text"
+              [(ngModel)]="username"
+              name="username"
+              placeholder="Usuario"
+              class="input input-bordered w-full"
               required
             />
           </div>
@@ -44,8 +46,10 @@
             </label>
             <input
               type="password"
+              [(ngModel)]="password"
+              name="password"
               placeholder="••••••••"
-              class="input input-bordered w-full focus:input-primary transition-all"
+              class="input input-bordered w-full"
               required
             />
             <label class="label">

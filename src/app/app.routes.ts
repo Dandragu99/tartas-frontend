@@ -4,6 +4,7 @@ import { CatalogoComponent } from './pages/catalogo.component/catalogo.component
 import { Inicio } from './pages/inicio/inicio';
 import { Login } from './auth/login/login';
 import { Register } from './auth/register/register';
+import { AdminDashboardLayout } from './auth/admin-dashboard/pages/admin-dashboard-layout/admin-dashboard-layout';
 
 export const routes: Routes = [
   {
@@ -12,6 +13,10 @@ export const routes: Routes = [
   {
     path: 'personalizar/:id',
     component: ConfiguradorComponent
+  },
+    {
+    path: 'admin',
+    component: AdminDashboardLayout,
   },
   {
     path: 'inicio',

@@ -64,27 +64,22 @@
   </div>
 </section>
 
-
-
 <!-- CATÁLOGO -->
 <main class="container mx-auto py-12 px-4">
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-    @for (tarta of productos(); track tarta.id) {
+    @for (tarta of productos().slice(0,3); track tarta.id) {
       <div class="card bg-base-100 shadow-md hover:shadow-xl transition">
         <!-- IMAGEN Y SLIDER -->
         <div class="relative h-56 overflow-hidden">
           <img
             [src]="getImagen(tarta)"
-            class="w-full h-full  bg-base-200 transition-all duration-300"
+            class="w-full h-full bg-base-200 transition-all duration-300"
             alt="Tarta" />
-
-
           <button
             (click)="cambiarImagen(tarta, -1)"
             class="btn btn-circle btn-sm absolute left-2 top-1/2 -translate-y-1/2 bg-base-100/80 backdrop-blur">
             ❮
           </button>
-
 
           <button
             (click)="cambiarImagen(tarta, 1)"
