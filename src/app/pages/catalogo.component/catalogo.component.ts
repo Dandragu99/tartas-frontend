@@ -19,8 +19,6 @@ export class CatalogoComponent  {
     this.productoService.getProductosBase().subscribe({
       next: (data) => {
         this.productos.set(data);
-
-
         const estado: Record<number, number> = {};
         data.forEach(p => estado[p.id] = 1);
         this.imagenActual.set(estado);

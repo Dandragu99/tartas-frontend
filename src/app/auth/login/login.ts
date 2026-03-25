@@ -28,10 +28,9 @@ export class Login {
     this.http.post<any>('http://localhost:8080/auth/login', datos)
       .subscribe({
         next: (response) => {
-
           localStorage.setItem("token", response.token);
-
           const payload = JSON.parse(atob(response.token.split('.')[1]));
+          console.log(payload);
 
           if (payload.rol === 'ROLE_ADMIN') {
             this.router.navigate(['/admin']);
@@ -44,5 +43,6 @@ export class Login {
         }
       });
   }
+
 }
 

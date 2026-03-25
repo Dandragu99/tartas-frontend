@@ -1,8 +1,69 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { ProductoBase } from '../../../../models/producto-base.model';
+import { ProductoService } from '../../../../services/producto.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-products-admin-page',
-  imports: [],
+  standalone: true,
+  imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './products-admin-page.html',
 })
-export class ProductsAdminPage { }
+export class ProductsAdminPage implements OnInit {
+
+  private productoService = inject(ProductoService);
+
+  productos = signal<ProductoBase[]>([]);
+
+
+
+  nuevoProducto: ProductoBase = {
+    nombre: '',
+    descripcion: '',
+    precioBase: 0,
+    imgPaso1: '',
+    imgPaso2: '',
+    imgPaso3: ''
+  } as ProductoBase;
+
+  ngOnInit() {
+    this.cargarProductos();
+  }
+
+  cargarProductos() {
+    this.productoService.getProductosBase().subscribe(data => {
+      this.productos.set(data.reverse());
+    });
+  }
+
+  crearProducto() {
+    this.productoService.createProducto(this.nuevoProducto).subscribe(() => {
+
+      this.cargarProductos();
+
+      this.nuevoProducto = {
+        id: 0,
+        nombre: '',
+        descripcion: '',
+        precioBase: 0,
+        imgPaso1: '',
+        imgPaso2: '',
+        imgPaso3: ''
+      };
+
+    });
+  }
+
+  eliminarProducto(id: number) {
+
+    if (!confirm("¿Eliminar producto?")) return;
+
+    this.productoService.deleteProducto(id).subscribe(() => {
+      this.cargarProductos();
+    });
+
+  }
+
+}

@@ -1,1 +1,83 @@
-<p>product-admin-page works!</p>,
+<h1 class="text-2xl font-bold mb-6">
+  Editar producto
+</h1>
+
+@if (producto()) {
+  <div class="grid grid-cols-3 gap-6">
+
+<!-- IMAGEN 1 -->
+
+<div>
+
+<img
+[src]="producto()?.imgPaso1
+      ? 'http://localhost:8080/' + producto()!.imgPaso1
+      : 'assets/img/placeholder.png'"
+class="w-40 h-40 object-cover rounded">
+
+<input
+type="file"
+(change)="uploadImagen($event, 'imgPaso1')">
+
+</div>
+
+
+<!-- IMAGEN 2 -->
+
+<div>
+
+<img
+[src]="'http://localhost:8080/' + producto()!.imgPaso2"
+class="w-40 h-40 object-cover rounded mb-2">
+
+<input
+type="file"
+(change)="uploadImagen($event, 'imgPaso2')">
+
+</div>
+
+
+<!-- IMAGEN 3 -->
+
+<div>
+
+<img
+[src]="'http://localhost:8080/' + producto()!.imgPaso3"
+class="w-40 h-40 object-cover rounded mb-2">
+
+<input
+type="file"
+(change)="uploadImagen($event, 'imgPaso3')">
+
+</div>
+</div>
+
+
+<div class="bg-gray-900 p-6 rounded-lg max-w-xl">
+
+  <input class="input input-bordered w-full mb-3" placeholder="Nombre" [(ngModel)]="producto()!.nombre">
+
+  <input class="input input-bordered w-full mb-3" type="number" placeholder="Precio"
+    [(ngModel)]="producto()!.precioBase">
+
+  <textarea class="textarea textarea-bordered w-full mb-3" placeholder="Descripción"
+    [(ngModel)]="producto()!.descripcion">
+</textarea>
+
+
+  <div class="flex gap-3">
+
+    <button class="btn btn-primary" (click)="guardarProducto()">
+      Guardar
+    </button>
+
+    <button class="btn btn-outline" routerLink="/admin/products">
+      Cancelar
+    </button>
+
+  </div>
+
+
+</div>
+
+}

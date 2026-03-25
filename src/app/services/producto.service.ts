@@ -19,6 +19,16 @@ export class ProductoService {
     return this.http.get<ProductoBase>(`${this.apiUrl}/${id}`);
   }
 
+  createProducto(producto: ProductoBase): Observable<ProductoBase> {
+    return this.http.post<ProductoBase>(this.apiUrl, producto);
+  }
 
+  updateProducto(id: number, producto: ProductoBase) {
+    return this.http.put(`${this.apiUrl}/${id}`, producto);
+  }
+
+  deleteProducto(id: number) {
+    return this.http.delete(`${this.apiUrl}/${id}`);
+  }
 
 }

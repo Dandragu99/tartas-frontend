@@ -9,23 +9,33 @@ import { CommonModule } from '@angular/common';
   templateUrl: './nav-bar.html',
 })
 export class NavBar {
+  router = inject(Router);
 
-  router = inject(Router)
-  isAdmin(): boolean {
+  private getPayload(): any {
     const token = localStorage.getItem("token");
-    if (!token) return false;
-
+    if (!token) return null;
     try {
-      const payload = JSON.parse(atob(token.split('.')[1]));
-      return payload.rol === 'ROLE_ADMIN';
+      return JSON.parse(atob(token.split('.')[1]));
     } catch {
-      return false;
+      return null;
     }
+  }
+
+  isAdmin(): boolean {
+    return this.getPayload()?.rol === 'ROLE_ADMIN';
   }
 
   isLogged(): boolean {
     return !!localStorage.getItem("token");
   }
+
+  getUserInitial(): string {
+    const payload = this.getPayload();
+    // Ajusta 'nombre', 'name' o 'sub' según cómo venga en tu JWT
+    const name = payload?.nombre ?? payload?.name ?? payload?.sub ?? '?';
+    return name.charAt(0).toUpperCase();
+  }
+
   logout() {
     localStorage.removeItem("token");
     this.router.navigate(['/inicio']);

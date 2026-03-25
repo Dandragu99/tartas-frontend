@@ -1,4 +1,5 @@
 <div class="navbar bg-base-100 shadow-md px-10">
+
   <div class="navbar-start">
     <a routerLink="/inicio" class="text-2xl font-serif font-bold text-primary">
       Ana's Bakery
@@ -31,14 +32,62 @@
     Iniciar sesión
   </a>
 
-  <!-- Si está logueado -->
-  <button
-    *ngIf="isLogged()"
-    (click)="logout()"
-    class="btn btn-error rounded-full"
-  >
-    Logout
-  </button>
+ <!-- Si está logueado: dropdown de perfil -->
+    <div *ngIf="isLogged()" class="dropdown dropdown-end">
+      <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar placeholder">
+        <div class="bg-primary text-primary-content rounded-full w-10">
+          <span class="text-lg font-bold">{{ getUserInitial() }}</span>
+        </div>
+      </div>
+      <ul tabindex="0"
+        class="menu menu-sm dropdown-content mt-3 z-1 p-2 shadow-lg bg-base-100 rounded-box w-52 gap-1">
+        <li>
+          <a routerLink="/perfil" class="text-base">
+            👤 Mi perfil
+          </a>
+        </li>
+        <li *ngIf="isAdmin()">
+          <a routerLink="/admin" class="text-base">
+            ⚙️ Dashboard
+          </a>
+        </li>
+        <div class="divider my-0"></div>
+        <li>
+          <button (click)="logout()" class="text-base text-error">
+            🚪 Cerrar sesión
+          </button>
+        </li>
+      </ul>
+    </div>
+
+   <!-- Hamburguesa (solo mobile) -->
+    <div class="dropdown dropdown-end lg:hidden">
+      <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+          viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </div>
+      <ul tabindex="0"
+        class="menu menu-sm dropdown-content mt-3 z-1 p-2 shadow-lg bg-base-100 rounded-box w-52 gap-1">
+        <li>
+          <a routerLink="/catalogo" class="text-base">
+            🎂 Catálogo
+          </a>
+        </li>
+        <li>
+          <a class="text-base">
+            📦 Mis pedidos
+          </a>
+        </li>
+        <li *ngIf="isAdmin()">
+          <a routerLink="/admin" class="text-base text-primary font-semibold">
+            ⚙️ Dashboard
+          </a>
+        </li>
+      </ul>
+    </div>
 
 </div>
 </div>

@@ -1,1 +1,98 @@
-<p>products-admin-page works!</p>,
+<h1 class="text-2xl font-bold mb-6">
+  Gestión de productos
+</h1>
+
+
+<!-- BOTÓN CREAR -->
+
+<div class="bg-base-100 p-6 rounded-lg shadow mb-8">
+
+  <h2 class="text-lg font-semibold mb-4">
+    Crear producto
+  </h2>
+
+  <div class="grid grid-cols-3 gap-4">
+
+    <input class="input input-bordered" placeholder="Nombre" [(ngModel)]="nuevoProducto.nombre">
+
+    <input class="input input-bordered" type="number" placeholder="Precio" [(ngModel)]="nuevoProducto.precioBase">
+
+    <input
+      class="input input-bordered"
+      placeholder="Imagen"
+      [(ngModel)]="nuevoProducto.imgPaso1">
+
+    <input class="input input-bordered col-span-3" placeholder="Descripción" [(ngModel)]="nuevoProducto.descripcion">
+
+    <input class="input input-bordered" placeholder="Imagen paso 2" [(ngModel)]="nuevoProducto.imgPaso2">
+
+    <input class="input input-bordered" placeholder="Imagen paso 3" [(ngModel)]="nuevoProducto.imgPaso3">
+
+  </div>
+
+  <button class="btn btn-primary mt-4" (click)="crearProducto()">
+    Guardar producto
+  </button>
+
+</div>
+
+
+<!-- TABLA -->
+
+<div class="bg-base-100 rounded-lg shadow">
+
+  <table class="table w-full">
+
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Imagen</th>
+        <th>Nombre</th>
+        <th>Precio</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+
+    <tbody>
+
+      @for (producto of productos(); track producto.id) {
+
+      <tr>
+
+        <td>{{producto.id}}</td>
+
+        <td>
+          <img
+          [src]="producto.imgPaso1 || 'assets/img/placeholder.png'"
+          class="w-16 h-16 object-cover rounded">
+        </td>
+
+        <td class="font-semibold">
+          {{producto.nombre}}
+        </td>
+
+        <td>
+          {{producto.precioBase}} €
+        </td>
+
+        <td class="flex gap-2">
+
+          <button class="btn btn-sm btn-info" [routerLink]="['/admin/products', producto.id]">
+            Editar
+          </button>
+
+          <button class="btn btn-sm btn-error" (click)="eliminarProducto(producto.id)">
+            Eliminar
+          </button>
+
+        </td>
+
+      </tr>
+
+      }
+
+    </tbody>
+
+  </table>
+
+</div>
