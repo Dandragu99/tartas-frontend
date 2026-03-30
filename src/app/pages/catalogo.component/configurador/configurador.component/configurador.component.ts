@@ -36,7 +36,7 @@ export class ConfiguradorComponent implements OnInit {
   alergias = signal<string>('');
   comentarios = signal<string>('');
 
-  bizcochos = computed(() => this.ingredientes().filter(i => i.tipo === 'BIZCOCHO'));
+  bizcochos = computed(() => this.ingredientes().filter(i => i.tipo === 'BIZCOCHO' && i.disponible));
   rellenos = computed(() => this.ingredientes().filter(i => i.tipo === 'RELLENO'));
   coberturas = computed(() => this.ingredientes().filter(i => i.tipo === 'COBERTURA'));
   extras = computed(() => this.ingredientes().filter(i => i.tipo === 'EXTRA'));
@@ -88,12 +88,12 @@ export class ConfiguradorComponent implements OnInit {
         next: (data) => this.tarta.set(data),
         error: (err) => console.error('Error cargando tarta', err)
       });
-    }
 
-    this.ingredienteService.getIngredientes().subscribe({
-      next: (data) => this.ingredientes.set(data),
-      error: (err) => console.error('Error cargando ingredientes', err)
-    });
+      this.ingredienteService.getIngredientesPorProducto(id).subscribe({
+        next: (data) => this.ingredientes.set(data),
+        error: (err) => console.error('Error cargando ingredientes', err)
+      });
+    }
   }
 
   onSeleccionarBizcocho(id: number) {
@@ -149,7 +149,7 @@ export class ConfiguradorComponent implements OnInit {
       && this.coberturaSeleccionada() !== null;
   }
 
-  actualizarPrecio() {}
+  actualizarPrecio() { }
 
   realizarPedido() {
     if (!this.esConfiguracionValida()) {
@@ -176,6 +176,8 @@ export class ConfiguradorComponent implements OnInit {
 
     console.log('Pedido realizado:', pedido);
 
+
+
     //  TODO
     // 1. Guardar en el carrito
     // 2. Enviar al back
@@ -183,7 +185,89 @@ export class ConfiguradorComponent implements OnInit {
 
     alert(`¡Tarta añadida al carrito! Total: ${this.precioFinal().toFixed(2)}€`);
 
-    // Opcional: redirigir
+    // Optcional: redirigir
     // this.router.navigate(['/carrito']);
+  }
+
+
+  private readonly imagenPorSabor: Record<string, { img1: string, img2: string, img3: string }> = {
+    'chocolate': {
+      img1: 'assets/img/chocolate-1.png',
+      img2: 'assets/img/chocolate-2.jpeg',
+      img3: 'assets/img/chocolate-3.png',
+    },
+    'velvet': {
+      img1: 'assets/img/red-velvet-1.png',
+      img2: 'assets/img/red-velvet-2.png',
+      img3: 'assets/img/red-velvet-3.png',
+    },
+    'cheescake': {
+      img1: 'assets/img/cheescake-1.png',
+      img2: 'assets/img/cheescake-2.png',
+      img3: 'assets/img/cheescake-3.png',
+    },
+    'limon': {
+      img1: 'assets/img/tarta-limon-1.png',
+      img2: 'assets/img/tarta-limon-2.png',
+      img3: 'assets/img/tarta-limon-3.png',
+    },
+    'limón': {
+      img1: 'assets/img/tarta-limon-1.png',
+      img2: 'assets/img/tarta-limon-2.png',
+      img3: 'assets/img/tarta-limon-3.png',
+    },
+    'vainilla': {
+      img1: 'assets/img/vainilla-1.jpg',
+      img2: 'assets/img/vainilla-2.jpg',
+      img3: 'assets/img/vainilla-3.jpg',
+    },
+  };
+
+  imagenActual = computed(() => {
+    const tarta = this.tarta();
+    if (!tarta) return '';
+
+    const pisos = this.pisosSeleccionados();
+    const bizcocho = this.bizcochoSeleccionado()?.nombre?.toLowerCase() ?? '';
+    const cobertura = this.coberturaSeleccionada()?.nombre?.toLowerCase() ?? '';
+
+    const sabor = cobertura || bizcocho;
+
+    const clave = Object.keys(this.imagenPorSabor).find(k => sabor.includes(k));
+
+    if (!clave) return tarta.imgPaso1;
+
+    const imagenes = this.imagenPorSabor[clave];
+
+    if (pisos === 3) return imagenes.img3;
+    if (this.coberturaSeleccionada()) return imagenes.img2;
+    return imagenes.img1;
+  });
+
+  iconoRelleno(nombre: string): string {
+    const n = nombre.toLowerCase();
+    if (n.includes('chocolate')) return '🍫';
+    if (n.includes('fresa')) return '🍓';
+    if (n.includes('vainilla')) return '🍦';
+    if (n.includes('limón') || n.includes('limon')) return '🍋';
+    return '🎂';
+  }
+
+  iconoCobertura(nombre: string): string {
+    const n = nombre.toLowerCase();
+    if (n.includes('chocolate')) return '🍫';
+    if (n.includes('velvet')) return '🎂';
+    if (n.includes('cheescake') || n.includes('queso')) return '🧀';
+    if (n.includes('limón') || n.includes('limon')) return '🍋';
+    return '✨';
+  }
+
+  iconoExtra(nombre: string): string {
+    const n = nombre.toLowerCase();
+    if (n.includes('fresa') || n.includes('frutos')) return '🍓';
+    if (n.includes('limón') || n.includes('limon')) return '🍋';
+    if (n.includes('chocolate')) return '🍫';
+    if (n.includes('nata')) return '🍦';
+    return '⭐';
   }
 }
