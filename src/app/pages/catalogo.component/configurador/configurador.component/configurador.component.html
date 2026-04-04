@@ -68,7 +68,6 @@
           </div>
         </div>
 
-        <!-- 3: Cobertura → llama imgPaso2 -->
         <div class="card bg-base-100 shadow-lg">
           <div class="card-body">
             <h2 class="card-title text-2xl mb-4">
@@ -91,7 +90,6 @@
           </div>
         </div>
 
-        <!-- 4: Tamaño y Pisos → 3 pisos llama imgPaso3 -->
         <div class="card bg-base-100 shadow-lg">
           <div class="card-body">
             <h2 class="card-title text-2xl mb-4">
@@ -142,7 +140,6 @@
           </div>
         </div>
 
-        <!-- 5: Extras y Decoración → botones seleccionables -->
         <div class="card bg-base-100 shadow-lg">
           <div class="card-body">
             <h2 class="card-title text-2xl mb-4">
@@ -168,7 +165,6 @@
           </div>
         </div>
 
-        <!-- 6: Personalización -->
         <div class="card bg-base-100 shadow-lg">
           <div class="card-body">
             <h2 class="card-title text-2xl mb-4">
@@ -218,11 +214,9 @@
 
       </div>
 
-      <!-- COLUMNA DERECHA: Vista previa + Resumen -->
       <div class="lg:col-span-1">
         <div class="sticky top-4 space-y-4">
 
-          <!-- Vista previa de imagen -->
           <div class="card bg-base-100 shadow-xl">
             <div class="card-body items-center text-center">
               <h3 class="card-title text-lg mb-2">Vista previa</h3>
@@ -232,7 +226,6 @@
                   [alt]="tarta()?.nombre"
                   class="object-contain w-full h-full transition-all duration-500 ease-in-out" />
               </div>
-              <!-- Indicador de qué imagen se está mostrando -->
               <div class="badge badge-outline badge-sm mt-2">
                 @if (coberturaSeleccionada() && pisosSeleccionados() < 3) {
                   Con cobertura
@@ -245,7 +238,6 @@
             </div>
           </div>
 
-          <!-- Resumen del pedido -->
           <div class="card bg-base-100 shadow-xl">
             <div class="card-body">
               <h3 class="card-title text-xl mb-4">Resumen del Pedido</h3>
@@ -337,7 +329,7 @@
 
               @if (!esConfiguracionValida()) {
                 <div class="alert alert-warning mt-2 text-xs">
-                  ⚠️ Selecciona al menos bizcocho, relleno y cobertura
+                   Selecciona al menos bizcocho, relleno y cobertura
                 </div>
               }
             </div>

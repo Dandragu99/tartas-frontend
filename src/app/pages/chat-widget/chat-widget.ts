@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -17,7 +17,8 @@ export class ChatWidget {
     { tipo: 'bot', texto: '¡Hola! 🎂 Soy el asistente de Ana\'s Bakery. ¿Qué tipo de tarta te apetece hoy?' }
   ];
 
-  constructor(private http: HttpClient) {}
+  private http = inject (HttpClient);
+  private cdr = inject (ChangeDetectorRef);
 
   toggleChat() { this.open = !this.open; }
 
@@ -28,23 +29,45 @@ export class ChatWidget {
     this.mensajes.push({ tipo: 'user', texto });
     this.input = '';
     this.cargando = true;
+    this.cdr.detectChanges();
 
     this.http.post<string>('http://localhost:8080/api/chat', {
       mensaje: texto,
-      historial: this.mensajes.filter(m => m.tipo === 'user').map(m => m.texto)
+      historial: this.mensajes.map(m => ({
+        role: m.tipo === 'user' ? 'user' : 'assistant',
+        content: m.texto
+      }))
     }, {
       responseType: 'text' as 'json',
       headers: { 'Content-Type': 'application/json' }
     }).subscribe({
       next: (res: any) => {
-        this.mensajes.push({ tipo: 'bot', texto: res });
         this.cargando = false;
+        this.simularEscritura(res);
+        this.cdr.detectChanges();
       },
       error: (err) => {
-        console.error('Error chat:', err); 
-        this.mensajes.push({ tipo: 'bot', texto: '⚠️ Error al conectar con el asistente.' });
+        console.error('Error chat:', err);
+        this.mensajes.push({ tipo: 'bot', texto: 'Error al conectar con el asistente.' });
         this.cargando = false;
+        this.cdr.detectChanges();
       }
     });
   }
+
+  private simularEscritura(texto: string) {
+  let i = 0;
+  const mensajeBot = { tipo: 'bot' as const, texto: '' };
+  this.mensajes.push(mensajeBot);
+
+  const intervalo = setInterval(() => {
+    mensajeBot.texto += texto[i];
+    i++;
+    this.cdr.detectChanges();
+
+    if (i >= texto.length) {
+      clearInterval(intervalo);
+    }
+  }, 18);
+}
 }
