@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { Router, RouterLink } from "@angular/router";
 import { CommonModule } from '@angular/common';
+import { CartService } from '../cart/cart.service/CartService';
 
 @Component({
   selector: 'app-nav-bar',
@@ -10,6 +11,8 @@ import { CommonModule } from '@angular/common';
 })
 export class NavBar {
   router = inject(Router);
+  private cartService = inject(CartService);
+  readonly cartCount = this.cartService.totalItems;
 
   private getPayload(): any {
     const token = localStorage.getItem("token");

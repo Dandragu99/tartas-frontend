@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { PublicLayout } from './auth/admin-dashboard/pages/public-layout/public-layout';
+import { Cart } from './pages/cart/cart.component/cart';
 
 export const routes: Routes = [
   {
@@ -11,6 +12,7 @@ export const routes: Routes = [
       { path: 'inicio',          loadComponent: () => import('./pages/inicio/inicio').then(m => m.Inicio) },
       { path: 'login',           loadComponent: () => import('./auth/login/login').then(m => m.Login) },
       { path: 'register',        loadComponent: () => import('./auth/register/register').then(m => m.Register) },
+      { path: 'cart',            loadComponent: () => import('./pages/cart/cart.component/cart').then(m => m.Cart) },
     ]
   },
   {
