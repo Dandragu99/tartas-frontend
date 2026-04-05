@@ -55,7 +55,7 @@ export class Cart {
   }
 
   checkout(): void {
-    // TODO: navegar a la página de checkout / formulario de pedido
+    // TODO: navegar a la página de checkout / formulario de pedido / IMPLEMENTAR STRIPE
     this.router.navigate(['/checkout']);
   }
 

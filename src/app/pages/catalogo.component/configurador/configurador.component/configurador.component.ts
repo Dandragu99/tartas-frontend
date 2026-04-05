@@ -1,23 +1,25 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms'; // Para ngModel
+import { FormsModule } from '@angular/forms';
 import { ProductoBase } from '../../../../models/producto-base.model';
 import { ProductoService } from '../../../../services/producto.service';
 import { IngredienteService } from '../../../../services/ingrediente.service';
 import { Ingrediente } from '../../../../models/ingrediente.model';
+import { CartService } from '../../../cart/cart.service/CartService';
 
 @Component({
   selector: 'app-configurador',
   standalone: true,
-  imports: [CommonModule, FormsModule], // Añadimos FormsModule para ngModel
+  imports: [CommonModule, FormsModule],
   templateUrl: './configurador.component.html',
 })
 export class ConfiguradorComponent implements OnInit {
-  private route = inject(ActivatedRoute);
   private router = inject(Router);
+  private route = inject(ActivatedRoute);
   private productoService = inject(ProductoService);
   private ingredienteService = inject(IngredienteService);
+  private cartService = inject(CartService);
 
   tarta = signal<ProductoBase | null>(null);
   ingredientes = signal<Ingrediente[]>([]);
@@ -157,36 +159,22 @@ export class ConfiguradorComponent implements OnInit {
       return;
     }
 
-    const pedido = {
-      tarta: this.tarta(),
-      bizcocho: this.bizcochoSeleccionado(),
-      relleno: this.rellenoSeleccionado(),
-      cobertura: this.coberturaSeleccionada(),
+    this.cartService.addItem({
+      nombre: this.tarta()?.nombre ?? 'Tarta personalizada',
+      imagen: this.imagenActual(),
+      bizcocho: this.bizcochoSeleccionado()?.nombre,
+      relleno: this.rellenoSeleccionado()?.nombre,
+      cobertura: this.coberturaSeleccionada()?.nombre,
       tamano: this.tamanoSeleccionado(),
       pisos: this.pisosSeleccionados(),
-      extras: this.extrasSeleccionados().map(id =>
-        this.ingredientes().find(i => i.id === id)
-      ),
-      mensaje: this.mensajeTarta(),
-      ingredientesExtra: this.ingredientesExtra(),
-      alergias: this.alergias(),
-      comentarios: this.comentarios(),
-      precioTotal: this.precioFinal()
-    };
+      extras: this.extrasSeleccionados().map(id => this.obtenerNombreExtra(id)),
+      mensaje: this.mensajeTarta() || undefined,
+      alergias: this.alergias() || undefined,
+      comentarios: this.comentarios() || undefined,
+      precioUnitario: this.precioFinal(),
+    });
 
-    console.log('Pedido realizado:', pedido);
-
-
-
-    //  TODO
-    // 1. Guardar en el carrito
-    // 2. Enviar al back
-    // 3. Redirigir al checkout
-
-    alert(`¡Tarta añadida al carrito! Total: ${this.precioFinal().toFixed(2)}€`);
-
-    // Optcional: redirigir
-    // this.router.navigate(['/carrito']);
+    this.router.navigate(['/cart']);
   }
 
 
