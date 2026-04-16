@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from "@angular/router";
+import { AuthService } from '../../../auth-service/auth.service';
 
 @Component({
   selector: 'app-admin-dashboard-layout',
@@ -9,4 +10,8 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from "@angular/router";
     CommonModule],
   templateUrl: './admin-dashboard-layout.html',
 })
-export class AdminDashboardLayout { }
+export class AdminDashboardLayout {
+
+  private authService = inject(AuthService);
+  user = this.authService.user; 
+ }

@@ -6,13 +6,35 @@
     </a>
   </div>
 
-
-
-
   <div class="navbar-center hidden lg:flex gap-4">
-    <ul class="menu menu-horizontal px-1">
+    <ul class="menu menu-horizontal px-1 items-center gap-2">
       <li><a routerLink="/catalogo">Catálogo</a></li>
-      <li><a>Mis pedidos</a></li>
+
+      <li>
+        <a
+          routerLink="/cart"
+          class="flex items-center gap-2"
+        >
+          <div class="indicator">
+            <svg xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M3 3h2l.4 2M7 13h10l4-4H5.4M7 13L5.4 5M7 13l-1.5 6h11" />
+            </svg>
+
+            @if (cartCount() > 0) {
+              <span class="badge badge-primary badge-sm indicator-item">
+                {{ cartCount() }}
+              </span>
+            }
+          </div>
+
+          <span>Mis pedidos</span>
+        </a>
+      </li>
     </ul>
 
     <button
@@ -22,43 +44,27 @@
     >
       Dashboard
     </button>
-
-          <!-- Carrito -->
-<button routerLink="/cart" class="btn btn-ghost btn-circle mr-1">
-  <div class="indicator">
-    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
-      viewBox="0 0 24 24" stroke="currentColor">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-        d="M3 3h2l.4 2M7 13h10l4-4H5.4M7 13L5.4 5M7 13l-1.5 6h11" />
-    </svg>
-    @if (cartCount() > 0) {
-      <span class="badge badge-primary badge-sm indicator-item">
-        {{ cartCount() }}
-      </span>
-    }
-  </div>
-</button>
-
   </div>
 
-<div class="navbar-end">
+  <div class="navbar-end">
 
-  <!-- Si NO está logueado -->
-  <a
-    *ngIf="!isLogged()"
-    routerLink="/login"
-    class="btn btn-primary rounded-full"
-  >
-    Iniciar sesión
-  </a>
+    <!-- Si NO está logueado -->
+    <a
+      *ngIf="!isLogged()"
+      routerLink="/login"
+      class="btn btn-primary rounded-full"
+    >
+      Iniciar sesión
+    </a>
 
- <!-- Si está logueado: dropdown de perfil -->
+    <!-- Si está logueado: dropdown de perfil -->
     <div *ngIf="isLogged()" class="dropdown dropdown-end">
       <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar placeholder">
         <div class="bg-primary text-primary-content rounded-full w-10">
           <span class="text-lg font-bold">{{ getUserInitial() }}</span>
         </div>
       </div>
+
       <ul tabindex="0"
         class="menu menu-sm dropdown-content mt-3 z-1 p-2 shadow-lg bg-base-100 rounded-box w-52 gap-1">
         <li>
@@ -66,12 +72,21 @@
             👤 Mi perfil
           </a>
         </li>
+
+        <li>
+          <a routerLink="/cart" class="text-base">
+            📦 Mis pedidos
+          </a>
+        </li>
+
         <li *ngIf="isAdmin()">
           <a routerLink="/admin" class="text-base">
             ⚙️ Dashboard
           </a>
         </li>
+
         <div class="divider my-0"></div>
+
         <li>
           <button (click)="logout()" class="text-base text-error">
             🚪 Cerrar sesión
@@ -80,7 +95,6 @@
       </ul>
     </div>
 
-   <!-- Hamburguesa (solo mobile) -->
     <div class="dropdown dropdown-end lg:hidden">
       <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
@@ -89,6 +103,7 @@
             d="M4 6h16M4 12h16M4 18h16" />
         </svg>
       </div>
+
       <ul tabindex="0"
         class="menu menu-sm dropdown-content mt-3 z-1 p-2 shadow-lg bg-base-100 rounded-box w-52 gap-1">
         <li>
@@ -96,11 +111,13 @@
             🎂 Catálogo
           </a>
         </li>
+
         <li>
-          <a class="text-base">
+          <a routerLink="/mis-pedidos" class="text-base">
             📦 Mis pedidos
           </a>
         </li>
+
         <li *ngIf="isAdmin()">
           <a routerLink="/admin" class="text-base text-primary font-semibold">
             ⚙️ Dashboard
@@ -109,5 +126,5 @@
       </ul>
     </div>
 
-</div>
+  </div>
 </div>

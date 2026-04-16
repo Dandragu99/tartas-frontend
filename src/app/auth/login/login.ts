@@ -1,13 +1,14 @@
 import { Component, inject } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../auth-service/auth.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule,RouterLink],
   templateUrl: './login.html',
 })
 export class Login {
@@ -17,32 +18,23 @@ export class Login {
 
   http = inject(HttpClient)
   router = inject(Router)
+  private authService = inject(AuthService);
 
   login() {
-
-    const datos = {
-      username: this.username,
-      password: this.password
-    };
-
-    this.http.post<any>('http://localhost:8080/auth/login', datos)
+    this.authService.login({ username: this.username, password: this.password })
       .subscribe({
-        next: (response) => {
-          localStorage.setItem("token", response.token);
-          const payload = JSON.parse(atob(response.token.split('.')[1]));
-          console.log(payload);
-
-          if (payload.rol === 'ROLE_ADMIN') {
+        next: () => {
+          const rol = this.authService.user()?.rol;
+          if (rol === 'ROLE_ADMIN') {
             this.router.navigate(['/admin']);
           } else {
             this.router.navigate(['/']);
           }
         },
-        error: (err) => {
-          alert("Credenciales incorrectas");
-        }
+        error: () => alert('Credenciales incorrectas')
       });
   }
-
 }
+
+
 

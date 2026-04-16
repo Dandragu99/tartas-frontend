@@ -14,13 +14,16 @@
 
     <!-- Perfil -->
     <div class="px-6 py-4 border-b border-slate-800 flex items-center gap-3">
-      <img
-        class="rounded-full w-9 h-9 ring-2 ring-pink-400/30"
-        src="https://images.unsplash.com/photo-1542909168-82c3e7fdca5c?auto=format&fit=crop&w=128&q=80"
-        alt="Avatar">
+      <div class="rounded-full w-9 h-9 ring-2 ring-pink-400/30
+                  bg-pink-500/20 flex items-center justify-center">
+        <span class="text-sm font-bold text-pink-400">
+          {{ user()?.nombre?.charAt(0)?.toUpperCase() }}
+        </span>
+      </div>
+
       <div>
-        <p class="text-xs text-slate-500">Bienvenida,</p>
-        <p class="text-sm font-semibold text-white">USUARIO</p>
+        <p class="text-xs text-slate-500">Bienvenid@,</p>
+        <p class="text-sm font-semibold text-white">{{user()?.nombre}}</p>
       </div>
     </div>
 
@@ -41,7 +44,7 @@
         </div>
       </a>
 
-      <a routerLink="/admin/products"
+      <a routerLink="/catalogo"
         routerLinkActive="bg-pink-500/10 text-pink-400 border-pink-500/30"
         class="flex items-center gap-3 px-3 py-2.5 rounded-lg border border-transparent
                text-slate-400 hover:text-white hover:bg-slate-800 transition-all duration-150">
@@ -49,7 +52,7 @@
           <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125" />
         </svg>
         <div>
-          <p class="text-sm font-semibold leading-tight">Productos</p>
+          <p class="text-sm font-semibold leading-tight">Catálogo cliente</p>
           <p class="text-xs text-slate-500">Listado de productos</p>
         </div>
       </a>
