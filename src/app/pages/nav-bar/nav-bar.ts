@@ -34,7 +34,6 @@ export class NavBar {
 
   getUserInitial(): string {
     const payload = this.getPayload();
-    // Ajusta 'nombre', 'name' o 'sub' según cómo venga en tu JWT
     const name = payload?.nombre ?? payload?.name ?? payload?.sub ?? '?';
     return name.charAt(0).toUpperCase();
   }

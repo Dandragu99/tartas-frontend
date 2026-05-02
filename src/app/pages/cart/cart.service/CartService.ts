@@ -4,7 +4,18 @@ import { CartItem } from '../cart.interface/CartItem';
 @Injectable({ providedIn: 'root' })
 export class CartService {
 
-  private _items = signal<CartItem[]>(this.loadFromStorage());
+  private _userId: number | null = null;
+
+  private get storageKey(): string {
+    return this._userId ? `ana_cart_${this._userId}` : 'ana_cart_guest';
+  }
+
+  private _items = signal<CartItem[]>([]);
+
+  setUsuario(id: number | null): void {
+  this._userId = id;
+  this._items.set(this.loadFromStorage());
+  }
 
   readonly items = this._items.asReadonly();
 
@@ -41,16 +52,20 @@ export class CartService {
 
   clear(): void {
     this._items.set([]);
-    localStorage.removeItem('ana_cart');
+    localStorage.removeItem(this.storageKey);
+  }
+
+  recargarCarrito(): void {
+    this._items.set(this.loadFromStorage());
   }
 
   private saveToStorage(): void {
-    localStorage.setItem('ana_cart', JSON.stringify(this._items()));
+    localStorage.setItem(this.storageKey, JSON.stringify(this._items()));
   }
 
   private loadFromStorage(): CartItem[] {
     try {
-      const raw = localStorage.getItem('ana_cart');
+      const raw = localStorage.getItem(this.storageKey);
       return raw ? JSON.parse(raw) : [];
     } catch {
       return [];

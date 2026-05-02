@@ -1,7 +1,9 @@
 import { Component, computed, inject } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { CartService } from '../cart.service/CartService';
 import { DecimalPipe } from '@angular/common';
+import { CrearPedidoCarritoDTO, PedidoService } from '../../../services/pedido.service';
+import { AuthService } from '../../../auth/auth-service/auth.service';
 
 @Component({
   selector: 'app-cart',
@@ -11,8 +13,9 @@ import { DecimalPipe } from '@angular/common';
 export class Cart {
 
   private cartService = inject(CartService);
+  private pedidoService = inject(PedidoService);
+  private authService = inject(AuthService);
   private router = inject(Router);
-
 
   readonly freeShippingThreshold = 60;
   readonly baseShipping = 5.90;
@@ -51,12 +54,39 @@ export class Cart {
   }
 
   goToCatalog(): void {
-    this.router.navigate(['/catalog']);  // ajustar la ruta
+    this.router.navigate(['/catalogo']);
   }
 
   checkout(): void {
     // TODO: navegar a la página de checkout / formulario de pedido / IMPLEMENTAR STRIPE
-    this.router.navigate(['/checkout']);
+    const user = this.authService.user();
+
+    if (!user) {
+      this.router.navigate(['/login']);
+      return;
+    }
+
+    const dto: CrearPedidoCarritoDTO = {
+      usuarioId: user.id,
+      precioTotal: this.total(),
+      items: this.cartItems().map(item => ({
+        productoBaseId: item.productoBaseId,
+        ingredientesIds: item.ingredientesIds,
+        cantidad: item.cantidad,
+        precioUnitario: item.precioUnitario,
+        mensaje: item.mensaje,
+        alergias: item.alergias
+      })),
+    };
+
+    this.pedidoService.crearDesdeCarrito(dto).subscribe({
+      next: () => {
+        this.cartService.clear();
+        this.router.navigate(['/pedido-confirmado']);
+      },
+      error: err => console.error('Error al crear pedido', err),
+    });
+
   }
 
 }

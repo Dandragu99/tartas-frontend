@@ -1,5 +1,8 @@
+import { ProductoBase } from '../../../models/producto-base.model';
 export interface CartItem {
-  cartId: string;        
+  cartId: string;
+  productoBaseId: number,
+  ingredientesIds: number[],
   nombre: string;
   imagen: string;
   bizcocho?: string;

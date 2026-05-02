@@ -28,7 +28,7 @@ export class Login {
           if (rol === 'ROLE_ADMIN') {
             this.router.navigate(['/admin']);
           } else {
-            this.router.navigate(['/']);
+            this.router.navigate(['/inicio']);
           }
         },
         error: () => alert('Credenciales incorrectas')

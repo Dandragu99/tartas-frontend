@@ -158,8 +158,19 @@ export class ConfiguradorComponent implements OnInit {
       alert('Por favor, completa la configuración básica de tu tarta');
       return;
     }
+      // Recoge todos los IDs seleccionados
+    const ingredientesIds = [
+      this.bizcochoSeleccionado()?.id,
+      this.rellenoSeleccionado()?.id,
+      this.coberturaSeleccionada()?.id,
+      ...this.extrasSeleccionados(),
+    ].filter((id): id is number => id !== undefined);
+
+
 
     this.cartService.addItem({
+      productoBaseId: this.tarta()!.id,   
+      ingredientesIds,
       nombre: this.tarta()?.nombre ?? 'Tarta personalizada',
       imagen: this.imagenActual(),
       bizcocho: this.bizcochoSeleccionado()?.nombre,
