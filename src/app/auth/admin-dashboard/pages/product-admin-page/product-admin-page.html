@@ -3,81 +3,111 @@
 </h1>
 
 @if (producto()) {
-  <div class="grid grid-cols-3 gap-6">
+  <div class="grid grid-cols-3 gap-6 mb-6">
 
-<!-- IMAGEN 1 -->
+    <!-- IMAGEN 1 -->
+    <div>
+      <p class="text-sm text-slate-400 mb-2">Imagen paso 1</p>
 
-<div>
+      <img
+        [src]="getImagenUrl(producto()?.imgPaso1)"
+        class="w-40 h-40 object-cover rounded mb-2">
 
-<img
-[src]="producto()?.imgPaso1
-      ? 'http://localhost:8080/' + producto()!.imgPaso1
-      : 'assets/img/placeholder.png'"
-class="w-40 h-40 object-cover rounded">
+      <input
+        type="file"
+        accept="image/*"
+        (change)="uploadImagen($event, 'imgPaso1')">
+    </div>
 
-<input
-type="file"
-(change)="uploadImagen($event, 'imgPaso1')">
+    <!-- IMAGEN 2 -->
+    <div>
+      <p class="text-sm text-slate-400 mb-2">Imagen paso 2</p>
 
-</div>
+      <img
+        [src]="getImagenUrl(producto()?.imgPaso2)"
+        class="w-40 h-40 object-cover rounded mb-2">
 
+      <input
+        type="file"
+        accept="image/*"
+        (change)="uploadImagen($event, 'imgPaso2')">
+    </div>
 
-<!-- IMAGEN 2 -->
+    <!-- IMAGEN 3 -->
+    <div>
+      <p class="text-sm text-slate-400 mb-2">Imagen paso 3</p>
 
-<div>
+      <img
+        [src]="getImagenUrl(producto()?.imgPaso3)"
+        class="w-40 h-40 object-cover rounded mb-2">
 
-<img
-[src]="'http://localhost:8080/' + producto()!.imgPaso2"
-class="w-40 h-40 object-cover rounded mb-2">
+      <input
+        type="file"
+        accept="image/*"
+        (change)="uploadImagen($event, 'imgPaso3')">
+    </div>
 
-<input
-type="file"
-(change)="uploadImagen($event, 'imgPaso2')">
+    <!-- IMAGEN 4 -->
+    <div>
+      <p class="text-sm text-slate-400 mb-2">Imagen paso 4</p>
 
-</div>
+      <img
+        [src]="getImagenUrl(producto()?.imgPaso4)"
+        class="w-40 h-40 object-cover rounded mb-2">
 
+      <input
+        type="file"
+        accept="image/*"
+        (change)="uploadImagen($event, 'imgPaso4')">
+    </div>
 
-<!-- IMAGEN 3 -->
+    <!-- IMAGEN 5 -->
+    <div>
+      <p class="text-sm text-slate-400 mb-2">Imagen paso 5</p>
 
-<div>
+      <img
+        [src]="getImagenUrl(producto()?.imgPaso5)"
+        class="w-40 h-40 object-cover rounded mb-2">
 
-<img
-[src]="'http://localhost:8080/' + producto()!.imgPaso3"
-class="w-40 h-40 object-cover rounded mb-2">
-
-<input
-type="file"
-(change)="uploadImagen($event, 'imgPaso3')">
-
-</div>
-</div>
-
-
-<div class="bg-gray-900 p-6 rounded-lg max-w-xl">
-
-  <input class="input input-bordered w-full mb-3" placeholder="Nombre" [(ngModel)]="producto()!.nombre">
-
-  <input class="input input-bordered w-full mb-3" type="number" placeholder="Precio"
-    [(ngModel)]="producto()!.precioBase">
-
-  <textarea class="textarea textarea-bordered w-full mb-3" placeholder="Descripción"
-    [(ngModel)]="producto()!.descripcion">
-</textarea>
-
-
-  <div class="flex gap-3">
-
-    <button class="btn btn-primary" (click)="guardarProducto()">
-      Guardar
-    </button>
-
-    <button class="btn btn-outline" routerLink="/admin/products">
-      Cancelar
-    </button>
+      <input
+        type="file"
+        accept="image/*"
+        (change)="uploadImagen($event, 'imgPaso5')">
+    </div>
 
   </div>
 
+  <div class="bg-gray-900 p-6 rounded-lg max-w-xl">
 
-</div>
+    <input
+      class="input input-bordered w-full mb-3"
+      placeholder="Nombre"
+      [(ngModel)]="producto()!.nombre">
 
+    <input
+      class="input input-bordered w-full mb-3"
+      type="number"
+      placeholder="Precio"
+      [(ngModel)]="producto()!.precioBase">
+
+    <textarea
+      class="textarea textarea-bordered w-full mb-3"
+      placeholder="Descripción"
+      [(ngModel)]="producto()!.descripcion">
+    </textarea>
+
+    <div class="flex gap-3">
+      <button class="btn btn-primary" (click)="guardarProducto()">
+        Guardar
+      </button>
+
+      <button
+        type="button"
+        class="btn btn-outline"
+        routerLink="/admin/products">
+        Cancelar
+      </button>
+    </div>
+
+  </div>
 }

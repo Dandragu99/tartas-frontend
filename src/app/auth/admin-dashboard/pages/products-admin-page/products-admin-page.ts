@@ -18,14 +18,15 @@ export class ProductsAdminPage implements OnInit {
   productos = signal<ProductoBase[]>([]);
 
 
-
   nuevoProducto: ProductoBase = {
     nombre: '',
     descripcion: '',
     precioBase: 0,
     imgPaso1: '',
     imgPaso2: '',
-    imgPaso3: ''
+    imgPaso3: '',
+    imgPaso4: '',
+    imgPaso5: ''
   } as ProductoBase;
 
   ngOnInit() {
@@ -50,9 +51,10 @@ export class ProductsAdminPage implements OnInit {
         precioBase: 0,
         imgPaso1: '',
         imgPaso2: '',
-        imgPaso3: ''
+        imgPaso3: '',
+        imgPaso4: '',
+        imgPaso5: ''
       };
-
     });
   }
 

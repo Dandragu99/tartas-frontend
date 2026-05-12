@@ -169,7 +169,7 @@ export class ConfiguradorComponent implements OnInit {
 
 
     this.cartService.addItem({
-      productoBaseId: this.tarta()!.id,   
+      productoBaseId: this.tarta()!.id,
       ingredientesIds,
       nombre: this.tarta()?.nombre ?? 'Tarta personalizada',
       imagen: this.imagenActual(),
@@ -194,14 +194,19 @@ export class ConfiguradorComponent implements OnInit {
 
     const pisos = this.pisosSeleccionados();
     const tieneCobertura = this.coberturaSeleccionada() !== null;
+    const tieneExtras = this.extrasSeleccionados().length > 0;
 
-    // img1 = tarta sin montar (solo bizcocho)
-    // img2 = tarta con cobertura aplicada
-    // img3 = tarta de 2+ pisos terminada
-    // img4 = no existe pero será la de topping extra
-    if (pisos >= 2) return tarta.imgPaso3;
-    if (tieneCobertura) return tarta.imgPaso2;
-    return tarta.imgPaso1;
+    // img1 = base sola
+    // img2 = con cobertura
+    // img3 = 2 pisos
+    // img4 = 3 pisos
+    // img5 = con topping/extra
+
+    if (tieneExtras && tarta.imgPaso5) return tarta.imgPaso5;
+    if (pisos === 3 && tarta.imgPaso4) return tarta.imgPaso4;
+    if (pisos === 2 && tarta.imgPaso3) return tarta.imgPaso3;
+    if (tieneCobertura && tarta.imgPaso2) return tarta.imgPaso2;
+    return tarta.imgPaso1 ?? '';
   });
 
   iconoRelleno(nombre: string): string {

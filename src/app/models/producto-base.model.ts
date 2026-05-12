@@ -6,4 +6,7 @@ export interface ProductoBase {
   imgPaso1: string;
   imgPaso2: string;
   imgPaso3: string;
+  imgPaso4?: string;
+  imgPaso5?: string;
+  ingredientesCompatibles?: any[];
 }

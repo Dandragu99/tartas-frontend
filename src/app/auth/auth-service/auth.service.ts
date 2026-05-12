@@ -32,17 +32,19 @@ export class AuthService {
         localStorage.setItem('token', response.token);
 
         this.cartService.setUsuario(userData.id);
-        
+
       })
     );
   }
 
-  logout() {
-    this._user.set(null);
-    localStorage.removeItem('currentUser');
-    localStorage.removeItem('token');
-    this.cartService.setUsuario(null);
-  }
+logout() {
+  console.log('Antes del logout:', localStorage.getItem('currentUser'));
+  this._user.set(null);
+  localStorage.removeItem('currentUser');
+  localStorage.removeItem('token');
+  this.cartService.setUsuario(null);
+  console.log('Después del logout:', localStorage.getItem('currentUser'));
+}
 
   register(body: { username: string; email: string; nombreCompleto: string; telefono: string; password: string; }): Observable<any> {
     return this.http.post<any>('http://localhost:8080/auth/register', body);

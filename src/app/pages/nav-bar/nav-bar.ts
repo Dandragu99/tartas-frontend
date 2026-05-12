@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { Router, RouterLink } from "@angular/router";
 import { CommonModule } from '@angular/common';
 import { CartService } from '../cart/cart.service/CartService';
+import { AuthService } from '../../auth/auth-service/auth.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -11,6 +12,7 @@ import { CartService } from '../cart/cart.service/CartService';
 })
 export class NavBar {
   router = inject(Router);
+  private authService = inject(AuthService);
   private cartService = inject(CartService);
   readonly cartCount = this.cartService.totalItems;
 
@@ -39,7 +41,7 @@ export class NavBar {
   }
 
   logout() {
-    localStorage.removeItem("token");
+    this.authService.logout();
     this.router.navigate(['/inicio']);
   }
 }

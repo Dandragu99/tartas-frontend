@@ -65,66 +65,40 @@
         </div>
       </div>
 
-      <ul tabindex="0"
-        class="menu menu-sm dropdown-content mt-3 z-1 p-2 shadow-lg bg-base-100 rounded-box w-52 gap-1">
-        <li>
-          <a routerLink="/profile" class="text-base">
-            👤 Mi perfil
-          </a>
-        </li>
-
-        <li>
-          <a routerLink="/cart" class="text-base">
-            📦 Mis pedidos
-          </a>
-        </li>
-
-        <li *ngIf="isAdmin()">
-          <a routerLink="/admin" class="text-base">
-            ⚙️ Dashboard
-          </a>
-        </li>
-
-        <div class="divider my-0"></div>
-
-        <li>
-          <button (click)="logout()" class="text-base text-error">
-            🚪 Cerrar sesión
-          </button>
-        </li>
-      </ul>
-    </div>
-
-    <div class="dropdown dropdown-end lg:hidden">
-      <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
-          viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M4 6h16M4 12h16M4 18h16" />
-        </svg>
-      </div>
-
-      <ul tabindex="0"
-        class="menu menu-sm dropdown-content mt-3 z-1 p-2 shadow-lg bg-base-100 rounded-box w-52 gap-1">
-        <li>
-          <a routerLink="/catalogo" class="text-base">
-            🎂 Catálogo
-          </a>
-        </li>
-
-        <li>
-          <a routerLink="/cart" class="text-base">
-            📦 Mis pedidos
-          </a>
-        </li>
-
-        <li *ngIf="isAdmin()">
-          <a routerLink="/admin" class="text-base text-primary font-semibold">
-            ⚙️ Dashboard
-          </a>
-        </li>
-      </ul>
-    </div>
-
+      <!-- Menú hamburguesa mobile (lg:hidden) -->
+<div class="dropdown dropdown-end lg:hidden">
+  <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+      viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+        d="M4 6h16M4 12h16M4 18h16" />
+    </svg>
   </div>
+
+  <ul tabindex="0"
+    class="menu menu-sm dropdown-content mt-3 z-1 p-2 shadow-lg bg-base-100 rounded-box w-52 gap-1">
+    <li><a routerLink="/catalogo" class="text-base">🎂 Catálogo</a></li>
+    <li><a routerLink="/cart" class="text-base">📦 Mis pedidos</a></li>
+
+    <li *ngIf="isAdmin()">
+      <a routerLink="/admin" class="text-base text-primary font-semibold">⚙️ Dashboard</a>
+    </li>
+
+    <div class="divider my-0"></div>
+
+    <!-- Si NO está logueado -->
+    <li *ngIf="!isLogged()">
+      <a routerLink="/login" class="text-base">🔑 Iniciar sesión</a>
+    </li>
+
+    <!-- Si está logueado -->
+    <ng-container *ngIf="isLogged()">
+      <li><a routerLink="/profile" class="text-base">👤 Mi perfil</a></li>
+      <li>
+        <button (click)="logout()" class="text-base text-error">🚪 Cerrar sesión</button>
+      </li>
+    </ng-container>
+
+  </ul>
+</div>
 </div>
