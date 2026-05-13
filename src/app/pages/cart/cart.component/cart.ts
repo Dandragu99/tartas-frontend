@@ -1,13 +1,13 @@
-import { Component, computed, inject } from '@angular/core';
-import { Router, RouterOutlet } from '@angular/router';
+import { Component, computed, inject, signal } from '@angular/core';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { CartService } from '../cart.service/CartService';
-import { DecimalPipe } from '@angular/common';
+import { CommonModule, DecimalPipe } from '@angular/common';
 import { CrearPedidoCarritoDTO, PedidoService } from '../../../services/pedido.service';
 import { AuthService } from '../../../auth/auth-service/auth.service';
 
 @Component({
   selector: 'app-cart',
-  imports: [DecimalPipe],
+  imports: [DecimalPipe, CommonModule],
   templateUrl: './cart.html',
 })
 export class Cart {
@@ -15,7 +15,9 @@ export class Cart {
   private cartService = inject(CartService);
   private pedidoService = inject(PedidoService);
   private authService = inject(AuthService);
-  private router = inject(Router);
+  router = inject(Router);
+
+  pedidoConfirmado = signal(false);
 
   readonly freeShippingThreshold = 60;
   readonly baseShipping = 5.90;
@@ -82,11 +84,13 @@ export class Cart {
     this.pedidoService.crearDesdeCarrito(dto).subscribe({
       next: () => {
         this.cartService.clear();
-        this.router.navigate(['/pedido-confirmado']);
+        this.pedidoConfirmado.set(true);
+        setTimeout(() => this.router.navigate(['/profile']), 1800);
       },
       error: err => console.error('Error al crear pedido', err),
     });
 
   }
+
 
 }

@@ -41,7 +41,7 @@
         </div>
         <div class="flex items-center gap-3 py-2">
           <span class="text-base-content/50 text-sm w-36">Teléfono</span>
-          <span class="text-sm">{{ usuario()?.telefono || '—' }}</span>
+          <span class="text-sm">{{ usuario()?.telefono }}</span>
         </div>
 
       } @else {
@@ -80,7 +80,7 @@
       }
     </div>
   </div>
-
+  <app-mis-pedidos />
   <!-- Cerrar sesión -->
   <button class="btn btn-ghost btn-sm self-start gap-2 text-base-content/60"
     (click)="cerrarSesion()">
@@ -90,5 +90,6 @@
     </svg>
     Cerrar sesión
   </button>
+
 
 </div>

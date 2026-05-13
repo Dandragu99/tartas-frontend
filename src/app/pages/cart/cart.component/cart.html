@@ -5,219 +5,220 @@
       <h1 class="text-4xl font-bold text-primary mb-2">Tu Carrito</h1>
       <p class="text-base-content/70">Revisa tu pedido antes de confirmar</p>
     </div>
-
     @if (cartItems().length === 0) {
-      <div class="card bg-base-100 shadow-lg max-w-md mx-auto">
-        <div class="card-body items-center text-center py-16">
-          <span class="text-7xl mb-4">🛒</span>
-          <h2 class="card-title text-2xl mb-2">Tu carrito está vacío</h2>
-          <p class="text-base-content/60 mb-6">Aún no has añadido ninguna tarta. ¡Empieza a personalizar!</p>
+    <div class="card bg-base-100 shadow-lg max-w-md mx-auto">
+      <div class="card-body items-center text-center py-16">
+        <span class="text-7xl mb-4">🛒</span>
+        <h2 class="card-title text-2xl mb-2">Tu carrito está vacío</h2>
+        <p class="text-base-content/60 mb-6">Aún no has añadido ninguna tarta. ¡Empieza a personalizar!</p>
+        <div class="flex gap-3">
           <button class="btn btn-primary btn-lg rounded-full" (click)="goToCatalog()">
             Ver Catálogo
           </button>
+          <button class="btn btn-outline btn-lg rounded-full" (click)="router.navigate(['/profile'])">
+            📦 Mis pedidos
+          </button>
         </div>
       </div>
+    </div>
     } @else {
-      <div class="grid lg:grid-cols-3 gap-6">
+    <div class="grid lg:grid-cols-3 gap-6">
 
-        <div class="lg:col-span-2 space-y-4">
+      <div class="lg:col-span-2 space-y-4">
 
-          @for (item of cartItems(); track item.cartId) {
-            <div class="card bg-base-100 shadow-md hover:shadow-lg transition-shadow">
-              <div class="card-body p-5">
+        @for (item of cartItems(); track item.cartId) {
+        <div class="card bg-base-100 shadow-md hover:shadow-lg transition-shadow">
+          <div class="card-body p-5">
 
-                <div class="flex gap-4">
-                  <div class="w-24 h-24 rounded-xl overflow-hidden bg-base-200 shrink-0">
-                    <img
-                      [src]="item.imagen"
-                      [alt]="item.nombre"
-                      class="w-full h-full object-contain" />
-                  </div>
+            <div class="flex gap-4">
+              <div class="w-24 h-24 rounded-xl overflow-hidden bg-base-200 shrink-0">
+                <img [src]="item.imagen" [alt]="item.nombre" class="w-full h-full object-contain" />
+              </div>
 
-                  <!-- info -->
-                  <div class="flex-1 min-w-0">
-                    <div class="flex items-start justify-between gap-2">
-                      <h3 class="font-bold text-lg leading-tight">{{ item.nombre }}</h3>
-                      <button
-                        (click)="removeItem(item.cartId)"
-                        class="btn btn-ghost btn-sm btn-circle text-error shrink-0">
-                        ✕
-                      </button>
-                    </div>
-
-                    <div class="flex flex-wrap gap-1 mt-2">
-                      @if (item.bizcocho) {
-                        <span class="badge badge-outline badge-sm">🍞 {{ item.bizcocho }}</span>
-                      }
-                      @if (item.relleno) {
-                        <span class="badge badge-outline badge-sm">🍓 {{ item.relleno }}</span>
-                      }
-                      @if (item.cobertura) {
-                        <span class="badge badge-outline badge-sm">🍫 {{ item.cobertura }}</span>
-                      }
-                      @if (item.tamano) {
-                        <span class="badge badge-outline badge-sm">👥 {{ item.tamano }} pers.</span>
-                      }
-                      @if (item.pisos > 1) {
-                        <span class="badge badge-outline badge-sm">🏗️ {{ item.pisos }} pisos</span>
-                      }
-                      @for (extra of item.extras; track extra) {
-                        <span class="badge badge-primary badge-sm badge-outline">✨ {{ extra }}</span>
-                      }
-                    </div>
-
-                    @if (item.mensaje) {
-                      <p class="text-xs text-base-content/60 mt-1 italic">"{{ item.mensaje }}"</p>
-                    }
-                    @if (item.alergias) {
-                      <p class="text-xs text-warning mt-1">⚠️ {{ item.alergias }}</p>
-                    }
-                  </div>
+              <!-- info -->
+              <div class="flex-1 min-w-0">
+                <div class="flex items-start justify-between gap-2">
+                  <h3 class="font-bold text-lg leading-tight">{{ item.nombre }}</h3>
+                  <button (click)="removeItem(item.cartId)" class="btn btn-ghost btn-sm btn-circle text-error shrink-0">
+                    ✕
+                  </button>
                 </div>
 
-                <div class="flex items-center justify-between mt-4 pt-4 border-t border-base-200">
-                  <div class="flex items-center gap-3">
-                    <span class="text-sm font-semibold text-base-content/70">Cantidad</span>
-                    <div class="flex items-center gap-2">
-                      <button
-                        (click)="decreaseQty(item.cartId)"
-                        class="btn btn-outline btn-primary btn-sm btn-circle">
-                        −
-                      </button>
-                      <span class="font-bold text-lg w-6 text-center">{{ item.cantidad }}</span>
-                      <button
-                        (click)="increaseQty(item.cartId)"
-                        class="btn btn-outline btn-primary btn-sm btn-circle">
-                        +
-                      </button>
-                    </div>
-                  </div>
-
-                  <div class="text-right">
-                    <p class="text-xs text-base-content/50">{{ item.precioUnitario | number:'1.2-2' }}€ / ud.</p>
-                    <p class="text-xl font-bold text-primary">
-                      {{ item.precioUnitario * item.cantidad | number:'1.2-2' }}€
-                    </p>
-                  </div>
+                <div class="flex flex-wrap gap-1 mt-2">
+                  @if (item.bizcocho) {
+                  <span class="badge badge-outline badge-sm">🍞 {{ item.bizcocho }}</span>
+                  }
+                  @if (item.relleno) {
+                  <span class="badge badge-outline badge-sm">🍓 {{ item.relleno }}</span>
+                  }
+                  @if (item.cobertura) {
+                  <span class="badge badge-outline badge-sm">🍫 {{ item.cobertura }}</span>
+                  }
+                  @if (item.tamano) {
+                  <span class="badge badge-outline badge-sm">👥 {{ item.tamano }} pers.</span>
+                  }
+                  @if (item.pisos > 1) {
+                  <span class="badge badge-outline badge-sm">🏗️ {{ item.pisos }} pisos</span>
+                  }
+                  @for (extra of item.extras; track extra) {
+                  <span class="badge badge-primary badge-sm badge-outline">✨ {{ extra }}</span>
+                  }
                 </div>
 
+                @if (item.mensaje) {
+                <p class="text-xs text-base-content/60 mt-1 italic">"{{ item.mensaje }}"</p>
+                }
+                @if (item.alergias) {
+                <p class="text-xs text-warning mt-1">⚠️ {{ item.alergias }}</p>
+                }
               </div>
             </div>
-          }
 
-          <div class="flex justify-between items-center pt-2">
-            <button class="btn btn-ghost btn-sm gap-2" (click)="goToCatalog()">
-              ← Seguir comprando
+            <div class="flex items-center justify-between mt-4 pt-4 border-t border-base-200">
+              <div class="flex items-center gap-3">
+                <span class="text-sm font-semibold text-base-content/70">Cantidad</span>
+                <div class="flex items-center gap-2">
+                  <button (click)="decreaseQty(item.cartId)" class="btn btn-outline btn-primary btn-sm btn-circle">
+                    −
+                  </button>
+                  <span class="font-bold text-lg w-6 text-center">{{ item.cantidad }}</span>
+                  <button (click)="increaseQty(item.cartId)" class="btn btn-outline btn-primary btn-sm btn-circle">
+                    +
+                  </button>
+                </div>
+              </div>
+
+              <div class="text-right">
+                <p class="text-xs text-base-content/50">{{ item.precioUnitario | number:'1.2-2' }}€ / ud.</p>
+                <p class="text-xl font-bold text-primary">
+                  {{ item.precioUnitario * item.cantidad | number:'1.2-2' }}€
+                </p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        }
+
+        <div class="flex justify-between items-center pt-2">
+          <button class="btn btn-ghost btn-sm gap-2" (click)="goToCatalog()">
+            ← Seguir comprando
+          </button>
+          <div class="flex gap-2">
+            <button class="btn btn-ghost btn-sm gap-2" (click)="router.navigate(['/profile'])">
+              📦 Mis pedidos
             </button>
             <button class="btn btn-ghost btn-sm text-error gap-2" (click)="clearCart()">
               🗑️ Vaciar carrito
             </button>
           </div>
-
         </div>
 
-        <div class="lg:col-span-1">
-          <div class="sticky top-4 space-y-4">
+      </div>
 
-            <div class="card bg-base-100 shadow-xl">
-              <div class="card-body">
-                <h3 class="card-title text-xl mb-4">Resumen del Pedido</h3>
+      <div class="lg:col-span-1">
+        <div class="sticky top-4 space-y-4">
 
-                <div class="space-y-3 text-sm">
-                  @for (item of cartItems(); track item.cartId) {
-                    <div class="flex justify-between">
-                      <span class="text-base-content/70 truncate max-w-[65%]">
-                        {{ item.nombre }} × {{ item.cantidad }}
-                      </span>
-                      <span class="font-semibold">
-                        {{ item.precioUnitario * item.cantidad | number:'1.2-2' }}€
-                      </span>
-                    </div>
-                  }
+          <div class="card bg-base-100 shadow-xl">
+            <div class="card-body">
+              <h3 class="card-title text-xl mb-4">Resumen del Pedido</h3>
+
+              <div class="space-y-3 text-sm">
+                @for (item of cartItems(); track item.cartId) {
+                <div class="flex justify-between">
+                  <span class="text-base-content/70 truncate max-w-[65%]">
+                    {{ item.nombre }} × {{ item.cantidad }}
+                  </span>
+                  <span class="font-semibold">
+                    {{ item.precioUnitario * item.cantidad | number:'1.2-2' }}€
+                  </span>
                 </div>
+                }
+              </div>
 
-                <div class="divider my-3"></div>
+              <div class="divider my-3"></div>
 
-                <div class="space-y-2 text-sm">
-                  <div class="flex justify-between">
-                    <span class="text-base-content/70">Subtotal</span>
-                    <span class="font-semibold">{{ subtotal() | number:'1.2-2' }}€</span>
-                  </div>
-                  <div class="flex justify-between">
-                    <span class="text-base-content/70">Envío</span>
-                    <span class="font-semibold">
-                      @if (shippingCost() === 0) {
-                        <span class="text-success">Gratis</span>
-                      } @else {
-                        {{ shippingCost() | number:'1.2-2' }}€
-                      }
-                    </span>
-                  </div>
-                  @if (subtotal() < freeShippingThreshold) {
-                    <div class="text-xs text-base-content/50 text-right">
-                      Te faltan {{ (freeShippingThreshold - subtotal()) | number:'1.2-2' }}€ para envío gratis
-                    </div>
-                    <progress
-                      class="progress progress-primary w-full"
-                      [value]="subtotal()"
-                      [max]="freeShippingThreshold">
-                    </progress>
-                  }
+              <div class="space-y-2 text-sm">
+                <div class="flex justify-between">
+                  <span class="text-base-content/70">Subtotal</span>
+                  <span class="font-semibold">{{ subtotal() | number:'1.2-2' }}€</span>
                 </div>
-
-                <div class="divider my-3"></div>
-
-                <div class="bg-primary/10 rounded-lg p-4">
-                  <div class="flex justify-between items-center">
-                    <span class="text-lg font-bold">Total</span>
-                    <span class="text-3xl font-bold text-primary">{{ total() | number:'1.2-2' }}€</span>
-                  </div>
+                <div class="flex justify-between">
+                  <span class="text-base-content/70">Envío</span>
+                  <span class="font-semibold">
+                    @if (shippingCost() === 0) {
+                    <span class="text-success">Gratis</span>
+                    } @else {
+                    {{ shippingCost() | number:'1.2-2' }}€
+                    }
+                  </span>
                 </div>
+                @if (subtotal() < freeShippingThreshold) { <div class="text-xs text-base-content/50 text-right">
+                  Te faltan {{ (freeShippingThreshold - subtotal()) | number:'1.2-2' }}€ para envío gratis
+              </div>
+              <progress class="progress progress-primary w-full" [value]="subtotal()" [max]="freeShippingThreshold">
+              </progress>
+              }
+            </div>
 
-                <button
-                  class="btn btn-primary btn-lg w-full mt-4 rounded-full"
-                  (click)="checkout()">
-                  Confirmar Pedido →
-                </button>
+            <div class="divider my-3"></div>
 
-                <p class="text-xs text-center text-base-content/40 mt-2">
-                  🔒 Pago seguro · Datos protegidos
-                </p>
-
+            <div class="bg-primary/10 rounded-lg p-4">
+              <div class="flex justify-between items-center">
+                <span class="text-lg font-bold">Total</span>
+                <span class="text-3xl font-bold text-primary">{{ total() | number:'1.2-2' }}€</span>
               </div>
             </div>
 
-            <div class="card bg-base-100 shadow-md">
-              <div class="card-body p-4 space-y-3 text-sm">
-                <div class="flex gap-3 items-start">
-                  <span class="text-xl">🎂</span>
-                  <div>
-                    <p class="font-semibold">Elaboración artesanal</p>
-                    <p class="text-base-content/60">Preparamos tu tarta en 48–72h</p>
-                  </div>
-                </div>
-                <div class="flex gap-3 items-start">
-                  <span class="text-xl">🚚</span>
-                  <div>
-                    <p class="font-semibold">Entrega refrigerada</p>
-                    <p class="text-base-content/60">Envío en packaging especial</p>
-                  </div>
-                </div>
-                <div class="flex gap-3 items-start">
-                  <span class="text-xl">💬</span>
-                  <div>
-                    <p class="font-semibold">¿Tienes dudas?</p>
-                    <p class="text-base-content/60">Escríbenos antes de confirmar</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <button class="btn btn-primary btn-lg w-full mt-4 rounded-full" (click)="checkout()">
+              Confirmar Pedido →
+            </button>
+
+            <p class="text-xs text-center text-base-content/40 mt-2">
+              🔒 Pago seguro · Datos protegidos
+            </p>
 
           </div>
         </div>
 
+        <div class="card bg-base-100 shadow-md">
+          <div class="card-body p-4 space-y-3 text-sm">
+            <div class="flex gap-3 items-start">
+              <span class="text-xl">🎂</span>
+              <div>
+                <p class="font-semibold">Elaboración artesanal</p>
+                <p class="text-base-content/60">Preparamos tu tarta en 48–72h</p>
+              </div>
+            </div>
+            <div class="flex gap-3 items-start">
+              <span class="text-xl">🚚</span>
+              <div>
+                <p class="font-semibold">Entrega refrigerada</p>
+                <p class="text-base-content/60">Envío en packaging especial</p>
+              </div>
+            </div>
+            <div class="flex gap-3 items-start">
+              <span class="text-xl">💬</span>
+              <div>
+                <p class="font-semibold">¿Tienes dudas?</p>
+                <p class="text-base-content/60">Escríbenos antes de confirmar</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
-    }
+    </div>
 
   </div>
+  }
+
+</div>
+@if (pedidoConfirmado()) {
+<div class="toast toast-top toast-center z-50">
+  <div class="alert alert-success shadow-lg">
+    <span>✅ ¡Pedido confirmado! Redirigiendo a tu perfil...</span>
+  </div>
+</div>
+}
 </div>

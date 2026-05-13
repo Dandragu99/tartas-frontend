@@ -1,104 +1,109 @@
 <div class="navbar bg-base-100 shadow-md px-10">
 
+  <!-- LOGO -->
   <div class="navbar-start">
     <a routerLink="/inicio" class="text-2xl font-serif font-bold text-primary">
       Ana's Bakery
     </a>
   </div>
 
+  <!-- CENTRO: solo en desktop -->
   <div class="navbar-center hidden lg:flex gap-4">
     <ul class="menu menu-horizontal px-1 items-center gap-2">
       <li><a routerLink="/catalogo">Catálogo</a></li>
 
       <li>
-        <a
-          routerLink="/cart"
-          class="flex items-center gap-2"
-        >
+        <a routerLink="/cart" class="flex items-center gap-2">
           <div class="indicator">
-            <svg xmlns="http://www.w3.org/2000/svg"
-              class="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+              viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 d="M3 3h2l.4 2M7 13h10l4-4H5.4M7 13L5.4 5M7 13l-1.5 6h11" />
             </svg>
-
             @if (cartCount() > 0) {
-              <span class="badge badge-primary badge-sm indicator-item">
-                {{ cartCount() }}
-              </span>
+              <span class="badge badge-primary badge-sm indicator-item">{{ cartCount() }}</span>
             }
           </div>
-
           <span>Mis pedidos</span>
         </a>
       </li>
     </ul>
 
-    <button
-      *ngIf="isAdmin()"
-      routerLink="/admin"
-      class="btn btn-outline btn-sm"
-    >
+    <button *ngIf="isAdmin()" routerLink="/admin" class="btn btn-outline btn-sm">
       Dashboard
     </button>
   </div>
 
-  <div class="navbar-end">
+  <!-- FIN: avatar + hamburguesa -->
+  <div class="navbar-end gap-2">
 
-    <!-- Si NO está logueado -->
-    <a
-      *ngIf="!isLogged()"
-      routerLink="/login"
-      class="btn btn-primary rounded-full"
-    >
-      Iniciar sesión
-    </a>
-
-    <!-- Si está logueado: dropdown de perfil -->
-    <div *ngIf="isLogged()" class="dropdown dropdown-end">
-      <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar placeholder">
+    <!-- AVATAR DROPDOWN (desktop, solo si logueado) -->
+    <div *ngIf="isLogged()" class="dropdown dropdown-end hidden lg:block"
+         [class.dropdown-open]="profileMenuOpen">
+      <div tabindex="0" role="button"
+           class="btn btn-ghost btn-circle avatar placeholder"
+           (click)="profileMenuOpen = !profileMenuOpen">
         <div class="bg-primary text-primary-content rounded-full w-10">
           <span class="text-lg font-bold">{{ getUserInitial() }}</span>
         </div>
       </div>
 
-      <!-- Menú hamburguesa mobile (lg:hidden) -->
-<div class="dropdown dropdown-end lg:hidden">
-  <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
-    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
-      viewBox="0 0 24 24" stroke="currentColor">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-        d="M4 6h16M4 12h16M4 18h16" />
-    </svg>
+      <ul tabindex="0"
+          class="menu menu-sm dropdown-content mt-3 z-50 p-2 shadow-lg bg-base-100 rounded-box w-52 gap-1">
+        <li><a routerLink="/profile" (click)="profileMenuOpen = false" class="text-base">👤 Mi perfil</a></li>
+        <li>
+          <button (click)="logout(); profileMenuOpen = false" class="text-base text-error">
+            🚪 Cerrar sesión
+          </button>
+        </li>
+      </ul>
+    </div>
+
+    <!-- BOTÓN LOGIN (desktop, solo si NO logueado) -->
+    <a *ngIf="!isLogged()" routerLink="/login"
+       class="btn btn-primary rounded-full hidden lg:flex">
+      Iniciar sesión
+    </a>
+
+    <!-- HAMBURGUESA (mobile, siempre visible) -->
+    <div class="dropdown dropdown-end lg:hidden"
+         [class.dropdown-open]="mobileMenuOpen">
+      <div tabindex="0" role="button"
+           class="btn btn-ghost btn-circle"
+           (click)="mobileMenuOpen = !mobileMenuOpen">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+          viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </div>
+
+      <ul tabindex="0"
+          class="menu menu-sm dropdown-content mt-3 z-50 p-2 shadow-lg bg-base-100 rounded-box w-52 gap-1">
+        <li><a routerLink="/catalogo" (click)="mobileMenuOpen = false" class="text-base">🎂 Catálogo</a></li>
+        <li><a routerLink="/cart" (click)="mobileMenuOpen = false" class="text-base">📦 Mis pedidos</a></li>
+
+        <li *ngIf="isAdmin()">
+          <a routerLink="/admin" (click)="mobileMenuOpen = false"
+             class="text-base text-primary font-semibold">⚙️ Dashboard</a>
+        </li>
+
+        <div class="divider my-0"></div>
+
+        <li *ngIf="!isLogged()">
+          <a routerLink="/login" (click)="mobileMenuOpen = false" class="text-base">🔑 Iniciar sesión</a>
+        </li>
+
+        <ng-container *ngIf="isLogged()">
+          <li><a routerLink="/profile" (click)="mobileMenuOpen = false" class="text-base">👤 Mi perfil</a></li>
+          <li>
+            <button (click)="logout(); mobileMenuOpen = false" class="text-base text-error">
+              🚪 Cerrar sesión
+            </button>
+          </li>
+        </ng-container>
+      </ul>
+    </div>
+
   </div>
-
-  <ul tabindex="0"
-    class="menu menu-sm dropdown-content mt-3 z-1 p-2 shadow-lg bg-base-100 rounded-box w-52 gap-1">
-    <li><a routerLink="/catalogo" class="text-base">🎂 Catálogo</a></li>
-    <li><a routerLink="/cart" class="text-base">📦 Mis pedidos</a></li>
-
-    <li *ngIf="isAdmin()">
-      <a routerLink="/admin" class="text-base text-primary font-semibold">⚙️ Dashboard</a>
-    </li>
-
-    <div class="divider my-0"></div>
-
-    <!-- Si NO está logueado -->
-    <li *ngIf="!isLogged()">
-      <a routerLink="/login" class="text-base">🔑 Iniciar sesión</a>
-    </li>
-
-    <!-- Si está logueado -->
-    <ng-container *ngIf="isLogged()">
-      <li><a routerLink="/profile" class="text-base">👤 Mi perfil</a></li>
-      <li>
-        <button (click)="logout()" class="text-base text-error">🚪 Cerrar sesión</button>
-      </li>
-    </ng-container>
-
-  </ul>
-</div>
 </div>

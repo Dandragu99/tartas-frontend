@@ -13,19 +13,37 @@
   <div class="grid grid-cols-3 gap-4">
 
     <input class="input input-bordered" placeholder="Nombre" [(ngModel)]="nuevoProducto.nombre">
-
     <input class="input input-bordered" type="number" placeholder="Precio" [(ngModel)]="nuevoProducto.precioBase">
-
-    <input
-      class="input input-bordered"
-      placeholder="Imagen"
-      [(ngModel)]="nuevoProducto.imgPaso1">
-
     <input class="input input-bordered col-span-3" placeholder="Descripción" [(ngModel)]="nuevoProducto.descripcion">
 
-    <input class="input input-bordered" placeholder="Imagen paso 2" [(ngModel)]="nuevoProducto.imgPaso2">
+    <div>
+      <p class="text-sm text-slate-400 mb-1">Imagen paso 1</p>
+      <img *ngIf="previews['imgPaso1']" [src]="previews['imgPaso1']" class="w-24 h-24 object-cover rounded mb-2">
+      <div *ngIf="!previews['imgPaso1']"
+        class="w-24 h-24 rounded mb-2 bg-slate-700 flex items-center justify-center text-slate-500 text-xs">
+        Sin imagen
+      </div>
+      <input type="file" accept="image/*" (change)="uploadImagen($event, 'imgPaso1')">
+    </div>
+    <div>
+      <p class="text-sm text-slate-400 mb-1">Imagen paso 2</p>
 
-    <input class="input input-bordered" placeholder="Imagen paso 3" [(ngModel)]="nuevoProducto.imgPaso3">
+      <img *ngIf="previews['imgPaso2']" [src]="previews['imgPaso2']" class="w-24 h-24 object-cover rounded mb-2">
+      <div *ngIf="!previews['imgPaso2']"
+        class="w-24 h-24 rounded mb-2 bg-slate-700 flex items-center justify-center text-slate-500 text-xs">
+        Sin imagen
+      </div>
+      <input type="file" accept="image/*" (change)="uploadImagen($event, 'imgPaso2')">
+    </div>
+    <div>
+      <p class="text-sm text-slate-400 mb-1">Imagen paso 3</p>
+      <img *ngIf="previews['imgPaso3']" [src]="previews['imgPaso3']" class="w-24 h-24 object-cover rounded mb-2">
+      <div *ngIf="!previews['imgPaso3']"
+        class="w-24 h-24 rounded mb-2 bg-slate-700 flex items-center justify-center text-slate-500 text-xs">
+        Sin imagen
+      </div>
+      <input type="file" accept="image/*" (change)="uploadImagen($event, 'imgPaso3')">
+    </div>
 
   </div>
 
@@ -61,9 +79,7 @@
         <td>{{producto.id}}</td>
 
         <td>
-          <img
-          [src]="producto.imgPaso1 || 'assets/img/placeholder.png'"
-          class="w-16 h-16 object-cover rounded">
+          <img [src]="producto.imgPaso1 || 'assets/img/placeholder.png'" class="w-16 h-16 object-cover rounded">
         </td>
 
         <td class="font-semibold">

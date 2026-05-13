@@ -4,11 +4,13 @@ import { Router } from '@angular/router';
 
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../auth/auth-service/auth.service';
+import { CommonModule } from '@angular/common';
+import { MisPedidos } from './mis-pedidos/mis-pedidos';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, MisPedidos],
   templateUrl: './profile.html',
 })
 export class Profile implements OnInit {

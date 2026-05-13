@@ -1,12 +1,29 @@
-<button (click)="toggleChat()"
-  class="fixed bottom-6 right-6 z-50 w-16 h-16 rounded-full bg-zinc-800 hover:bg-zinc-700 border border-zinc-600 text-2xl shadow-xl transition-all duration-200 flex flex-col items-center justify-center gap-0.5">
-  @if (open) {
-  <span class="text-zinc-300 text-xl">✕</span>
-  } @else {
-  <span>🎂</span>
-  <span class="text-[9px] font-bold text-amber-400 tracking-widest leading-none">IA</span>
-  }
-</button>
+<div class="fixed bottom-6 right-6 z-50">
+  <button (click)="toggleChat()"
+    class="relative flex items-center gap-3 px-4 py-3 rounded-2xl
+           bg-zinc-800 hover:bg-zinc-700 border border-amber-400/60
+           shadow-xl transition-all duration-200">
+
+    @if (open) {
+      <span class="text-xl">🎂</span>
+      <div class="flex flex-col items-start leading-tight">
+        <span class="text-sm font-bold text-amber-400 tracking-wide">Anabot</span>
+        <span class="text-[10px] text-zinc-400">Cerrar chat</span>
+      </div>
+      <span class="text-zinc-400 text-base ml-1">✕</span>
+    } @else {
+      <div class="w-9 h-9 rounded-xl bg-amber-400/10 border border-amber-400/40 flex items-center justify-center shrink-0">
+        <span class="text-xl">🎂</span>
+      </div>
+      <div class="flex flex-col items-start leading-tight">
+        <span class="text-sm font-bold text-amber-400 tracking-wide">Anabot</span>
+        <span class="text-[10px] text-zinc-400">Asistente Virtual</span>
+      </div>
+      <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse ml-1 shrink-0"></span>
+    }
+
+  </button>
+</div>
 
 @if (open) {
 <div

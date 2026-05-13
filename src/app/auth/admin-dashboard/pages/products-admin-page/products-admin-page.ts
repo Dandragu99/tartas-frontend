@@ -16,7 +16,7 @@ export class ProductsAdminPage implements OnInit {
   private productoService = inject(ProductoService);
 
   productos = signal<ProductoBase[]>([]);
-
+  previews: Record<string, string> = {};
 
   nuevoProducto: ProductoBase = {
     nombre: '',
@@ -56,6 +56,30 @@ export class ProductsAdminPage implements OnInit {
         imgPaso5: ''
       };
     });
+  }
+
+  uploadImagen(event: Event, campo: 'imgPaso1' | 'imgPaso2' | 'imgPaso3') {
+    const input = event.target as HTMLInputElement;
+    const file = input.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      this.previews[campo] = e.target?.result as string;
+    };
+    reader.readAsDataURL(file);
+
+    const formData = new FormData();
+    formData.append('file', file);
+
+    fetch('http://localhost:8080/api/upload', {
+      method: 'POST',
+      body: formData
+    })
+      .then(res => res.text())
+      .then(path => {
+        this.nuevoProducto = { ...this.nuevoProducto, [campo]: path };
+      });
   }
 
   eliminarProducto(id: number) {

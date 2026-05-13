@@ -1,0 +1,59 @@
+<div class="flex flex-col gap-3 mt-4">
+  <p class="text-xs font-medium uppercase tracking-wider text-base-content/50">
+    Mis pedidos
+  </p>
+
+  @if (cargando()) {
+    <p class="text-sm text-base-content/50">Cargando pedidos...</p>
+  }
+
+  @if (!cargando() && pedidos().length === 0) {
+    <p class="text-sm text-base-content/50">Todavía no tienes pedidos.</p>
+  }
+
+  @for (pedido of pedidos(); track pedido.idPedido) {
+    <div class="card bg-base-100 border border-base-200 shadow-sm cursor-pointer"
+         (click)="togglePedido(pedido.idPedido)">
+
+      <!-- Cabecera del pedido -->
+      <div class="card-body py-3 px-4 flex-row items-center gap-3">
+        <span class="text-2xl">🎂</span>
+        <div class="flex-1 min-w-0">
+          <p class="font-medium text-sm truncate">{{ pedido.productoBaseNombre }}</p>
+          <p class="text-xs text-base-content/50">
+            Entrega: {{ pedido.fechaEntrega | date:'dd/MM/yyyy' }}
+            · {{ pedido.precioTotal | currency:'EUR':'symbol':'1.2-2':'es' }}
+          </p>
+        </div>
+        <span class="badge badge-sm {{ badgeClase(pedido.estado) }}">
+          {{ badgeLabel(pedido.estado) }}
+        </span>
+        <span class="text-base-content/30 text-xs ml-1">
+          {{ pedidoAbierto() === pedido.idPedido ? '▲' : '▼' }}
+        </span>
+      </div>
+
+      <!-- Timeline expandible -->
+      @if (pedidoAbierto() === pedido.idPedido) {
+        <div class="px-4 pb-4 pt-1 border-t border-base-200">
+            <ul class="steps steps-horizontal w-full">
+              @for (paso of pasos; track paso.estado; let i = $index) {
+                <li [class]="i <= pasoActual(pedido.estado) ? 'step ' + colorPaso(pedido.estado) : 'step'"
+                    class="text-xs">
+                  <span class="text-base">{{ paso.icono }}</span>
+                  <br>{{ paso.label }}
+                </li>
+              }
+            </ul>
+
+          @if (pedido.ingredientes.length > 0) {
+            <p class="text-xs text-base-content/50 mt-3">
+              <span class="font-medium text-base-content/70">Personalización:</span>
+              {{ pedido.ingredientes.join(', ') }}
+            </p>
+          }
+        </div>
+      }
+    </div>
+  }
+</div>

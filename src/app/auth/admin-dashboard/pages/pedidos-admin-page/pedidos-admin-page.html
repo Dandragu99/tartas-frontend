@@ -1,0 +1,98 @@
+<h1 class="text-2xl font-bold mb-6">Gestión de pedidos</h1>
+
+@if (cargando()) {
+  <p class="text-slate-400">Cargando pedidos...</p>
+}
+
+@if (!cargando() && pedidos().length === 0) {
+  <p class="text-slate-400">No hay pedidos registrados.</p>
+}
+
+<div class="flex flex-col gap-4">
+  @for (pedido of pedidos(); track pedido.idPedido) {
+
+    <div class="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden">
+
+      <!-- Cabecera -->
+      <div class="flex items-center gap-4 px-5 py-4 cursor-pointer hover:bg-slate-800/50 transition"
+           (click)="togglePedido(pedido.idPedido)">
+
+        <div class="flex-1 grid grid-cols-4 gap-4 items-center">
+          <div>
+            <p class="text-xs text-slate-500">Cliente</p>
+            <p class="text-sm font-semibold text-white">{{ pedido.nombreUsuario }}</p>
+          </div>
+          <div>
+            <p class="text-xs text-slate-500">Producto</p>
+            <p class="text-sm font-medium">{{ pedido.productoBaseNombre }}</p>
+          </div>
+          <div>
+            <p class="text-xs text-slate-500">Entrega</p>
+            <p class="text-sm">{{ pedido.fechaEntrega | date:'dd/MM/yyyy' }}</p>
+          </div>
+          <div class="flex items-center gap-3 justify-end">
+            <span class="badge badge-sm {{ badgeClase(pedido.estado) }}">
+              {{ badgeLabel(pedido.estado) }}
+            </span>
+            <span class="text-slate-500 text-xs">
+              {{ pedidoAbierto() === pedido.idPedido ? '▲' : '▼' }}
+            </span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Detalle expandible -->
+      @if (pedidoAbierto() === pedido.idPedido) {
+        <div class="border-t border-slate-800 px-5 py-4 space-y-4">
+
+          <!-- Timeline -->
+          <ul class="steps steps-horizontal w-full">
+            @for (paso of pasos; track paso.estado; let i = $index) {
+              <li [class]="i <= pasoActual(pedido.estado)
+                    ? 'step text-xs ' + colorPaso(pedido.estado)
+                    : 'step text-xs'">
+                <span class="text-base">{{ paso.icono }}</span>
+                <br>{{ paso.label }}
+              </li>
+            }
+          </ul>
+
+          <!-- Info extra -->
+          @if (pedido.ingredientes.length > 0) {
+            <p class="text-xs text-slate-400">
+              <span class="text-slate-300 font-medium">Personalización:</span>
+              {{ pedido.ingredientes.join(', ') }}
+            </p>
+          }
+
+          <p class="text-xs text-slate-400">
+            <span class="text-slate-300 font-medium">Total:</span>
+            {{ pedido.precioTotal | number:'1.2-2' }}€
+          </p>
+
+          <!-- Botones de estado -->
+          <div class="flex items-center gap-3 pt-2">
+            <span class="text-xs text-slate-500 mr-2">Cambiar estado:</span>
+
+            <button
+              class="btn btn-sm btn-outline btn-slate"
+              [disabled]="pasoActual(pedido.estado) === 0"
+              (click)="retrocederEstado(pedido); $event.stopPropagation()">
+              ← Anterior
+            </button>
+
+            <button
+              class="btn btn-sm btn-primary"
+              [disabled]="pasoActual(pedido.estado) === 3"
+              (click)="avanzarEstado(pedido); $event.stopPropagation()">
+              Siguiente →
+            </button>
+          </div>
+
+        </div>
+      }
+
+    </div>
+  }
+</div>

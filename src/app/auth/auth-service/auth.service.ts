@@ -6,7 +6,7 @@ import { CartService } from '../../pages/cart/cart.service/CartService';
 @Injectable({ providedIn: 'root' })
 export class AuthService {
 
-  private _user = signal<{ nombre: string; rol: string; id:number } | null>(null);
+  private _user = signal<{ nombre: string; rol: string; id: number } | null>(null);
   private http = inject(HttpClient);
   private cartService = inject(CartService);
 
@@ -19,6 +19,9 @@ export class AuthService {
       this._user.set(userData);
       this.cartService.setUsuario(userData.id);
     }
+  }
+  getUsuarioId(): number | null {
+    return this._user()?.id ?? null;
   }
 
   login(credentials: any): Observable<any> {
@@ -37,14 +40,14 @@ export class AuthService {
     );
   }
 
-logout() {
-  console.log('Antes del logout:', localStorage.getItem('currentUser'));
-  this._user.set(null);
-  localStorage.removeItem('currentUser');
-  localStorage.removeItem('token');
-  this.cartService.setUsuario(null);
-  console.log('Después del logout:', localStorage.getItem('currentUser'));
-}
+  logout() {
+    console.log('Antes del logout:', localStorage.getItem('currentUser'));
+    this._user.set(null);
+    localStorage.removeItem('currentUser');
+    localStorage.removeItem('token');
+    this.cartService.setUsuario(null);
+    console.log('Después del logout:', localStorage.getItem('currentUser'));
+  }
 
   register(body: { username: string; email: string; nombreCompleto: string; telefono: string; password: string; }): Observable<any> {
     return this.http.post<any>('http://localhost:8080/auth/register', body);

@@ -3,6 +3,7 @@ import { AdminDashboardLayout } from './pages/admin-dashboard-layout/admin-dashb
 import { ProductAdminPage } from './pages/product-admin-page/product-admin-page';
 import { ProductsAdminPage } from './pages/products-admin-page/products-admin-page';
 import { adminGuard } from '../guards/admin.guard';
+import { PedidosAdminPage } from './pages/pedidos-admin-page/pedidos-admin-page';
 
 
 export const adminDashboardRoutes: Routes = [
@@ -25,6 +26,9 @@ export const adminDashboardRoutes: Routes = [
       {
         path: 'products/:id',
         component: ProductAdminPage,
+      },
+      { path: 'pedidos',
+        component: PedidosAdminPage,
       },
       {
         path: '**',

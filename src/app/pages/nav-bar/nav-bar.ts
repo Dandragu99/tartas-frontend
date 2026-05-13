@@ -15,6 +15,8 @@ export class NavBar {
   private authService = inject(AuthService);
   private cartService = inject(CartService);
   readonly cartCount = this.cartService.totalItems;
+  profileMenuOpen = false;
+  mobileMenuOpen = false;
 
   private getPayload(): any {
     const token = localStorage.getItem("token");
@@ -39,6 +41,7 @@ export class NavBar {
     const name = payload?.nombre ?? payload?.name ?? payload?.sub ?? '?';
     return name.charAt(0).toUpperCase();
   }
+
 
   logout() {
     this.authService.logout();
