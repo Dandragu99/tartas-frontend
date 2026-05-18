@@ -1,5 +1,5 @@
 [build]
-  command = "echo 'export const environment = { production: false, mapboxToken: \"dummy\" };' > src/environments/environment.ts && sed -i 's/%%MAPBOX_TOKEN%%/$MAPBOX_TOKEN/g' src/environments/environment.prod.ts && npx ng build --configuration production"
+  command = "mkdir -p src/environments && printf \"export const environment = { production: true, apiUrl: '%s', mapboxToken: '%s' };\\n\" \"$API_URL\" \"$MAPBOX_TOKEN\" > src/environments/environment.ts && cp src/environments/environment.ts src/environments/environment.prod.ts && npx ng build --configuration production"
   publish = "dist/front-bakery/browser"
 
 [build.environment]

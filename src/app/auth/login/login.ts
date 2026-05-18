@@ -15,6 +15,7 @@ export class Login {
 
   username: string = '';
   password: string = '';
+  showPassword = false;
 
   http = inject(HttpClient)
   router = inject(Router)
