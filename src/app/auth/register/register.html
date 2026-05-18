@@ -32,7 +32,7 @@
             <input type="text" [(ngModel)]="nombreCompleto" name="nombreCompleto" placeholder="Ana García"
               class="input input-bordered w-full focus:input-primary transition-all" />
           </div>
-            <!-- Nombre usuario -->
+          <!-- Nombre usuario -->
           <span class="label-text font-medium">Usuario</span>
           <input type="text" [(ngModel)]="username" name="username" placeholder="ana_garcia"
             class="input input-bordered w-full focus:input-primary transition-all" />
@@ -60,12 +60,27 @@
             <label class="label">
               <span class="label-text font-medium">Contraseña</span>
             </label>
-            <input type="password" [(ngModel)]="password" name="password" placeholder="••••••••"
-              class="input input-bordered w-full focus:input-primary transition-all" />
+            <div class="relative">
+              <input [type]="showPassword ? 'text' : 'password'" [(ngModel)]="password" name="password"
+                placeholder="••••••••" class="input input-bordered w-full pr-12 focus:input-primary transition-all" />
+              <button type="button" (click)="showPassword = !showPassword"
+                class="absolute right-3 top-1/2 -translate-y-1/2 text-base-content/50 hover:text-base-content transition-colors">
+                <svg *ngIf="!showPassword" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
+                  viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                </svg>
+                <svg *ngIf="showPassword" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
+                  viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M13.875 18.825A10.05 10.05 0 0112 19c-4.477 0-8.268-2.943-9.542-7a9.97 9.97 0 012.284-3.716M6.53 6.533A9.956 9.956 0 0112 5c4.477 0 8.268 2.943 9.542 7a10.025 10.025 0 01-4.132 5.411M3 3l18 18" />
+                </svg>
+              </button>
+            </div>
             <label class="label">
-              <span class="label-text-alt text-base-content/60">
-                Mínimo 8 caracteres
-              </span>
+              <span class="label-text-alt text-base-content/60">Mínimo 8 caracteres</span>
             </label>
           </div>
 
@@ -74,14 +89,32 @@
             <label class="label">
               <span class="label-text font-medium">Confirmar contraseña</span>
             </label>
-            <input type="password" [(ngModel)]="confirmPassword" name="confirmPassword" placeholder="••••••••"
-              class="input input-bordered w-full focus:input-primary transition-all" />
+            <div class="relative">
+              <input [type]="showConfirmPassword ? 'text' : 'password'" [(ngModel)]="confirmPassword"
+                name="confirmPassword" placeholder="••••••••"
+                class="input input-bordered w-full pr-12 focus:input-primary transition-all" />
+              <button type="button" (click)="showConfirmPassword = !showConfirmPassword"
+                class="absolute right-3 top-1/2 -translate-y-1/2 text-base-content/50 hover:text-base-content transition-colors">
+                <svg *ngIf="!showConfirmPassword" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
+                  viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                </svg>
+                <svg *ngIf="showConfirmPassword" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
+                  viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M13.875 18.825A10.05 10.05 0 0112 19c-4.477 0-8.268-2.943-9.542-7a9.97 9.97 0 012.284-3.716M6.53 6.533A9.956 9.956 0 0112 5c4.477 0 8.268 2.943 9.542 7a10.025 10.025 0 01-4.132 5.411M3 3l18 18" />
+                </svg>
+              </button>
+            </div>
           </div>
-
           <!-- Términos y condiciones -->
           <div class="form-control">
             <label class="label cursor-pointer justify-start gap-3">
-              <input type="checkbox" [(ngModel)]="aceptaTerminos" name="aceptaTerminos" class="checkbox checkbox-primary checkbox-sm" />
+              <input type="checkbox" [(ngModel)]="aceptaTerminos" name="aceptaTerminos"
+                class="checkbox checkbox-primary checkbox-sm" />
               <span class="label-text text-sm">
                 Acepto los
                 <a href="#" class="link link-primary" (click)="$event.stopPropagation()">términos y condiciones</a>
@@ -94,7 +127,8 @@
           <!-- Newsletter -->
           <div class="form-control">
             <label class="label cursor-pointer justify-start gap-3">
-              <input type="checkbox" [(ngModel)]="newsletter" name="newsletter" class="checkbox checkbox-primary checkbox-sm" />
+              <input type="checkbox" [(ngModel)]="newsletter" name="newsletter"
+                class="checkbox checkbox-primary checkbox-sm" />
               <span class="label-text text-sm">
                 Quiero recibir ofertas y novedades por email
               </span>

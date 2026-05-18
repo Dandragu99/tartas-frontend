@@ -3,11 +3,12 @@ import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../auth-service/auth.service';
 import { User } from '../auth.model/user.model';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [RouterLink, FormsModule],
+  imports: [RouterLink, FormsModule, CommonModule],
   templateUrl: './register.html',
 })
 export class Register {
@@ -19,6 +20,9 @@ export class Register {
   confirmPassword = '';
   aceptaTerminos = false;
   newsletter = false;
+
+  showPassword = false;
+  showConfirmPassword = false;
 
   private router = inject(Router);
   private authService = inject(AuthService);
