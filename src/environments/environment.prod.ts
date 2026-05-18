@@ -1,4 +1,5 @@
 export const environment = {
   production: true,
-  mapboxToken: '%%MAPBOX_TOKEN%%' 
+  mapboxToken: '%%MAPBOX_TOKEN%%',
+  apiUrl: '%%API_URL%%'
 };

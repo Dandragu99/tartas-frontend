@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { ProductoBase } from '../../../../models/producto-base.model';
 import { ProductoService } from '../../../../services/producto.service';
 import { RouterLink } from '@angular/router';
+import { environment } from '../../../../../environments/environment.prod';
 
 @Component({
   selector: 'app-products-admin-page',
@@ -72,7 +73,7 @@ export class ProductsAdminPage implements OnInit {
     const formData = new FormData();
     formData.append('file', file);
 
-    fetch('http://localhost:8080/api/upload', {
+    fetch(`${environment.apiUrl}/api/upload`, {
       method: 'POST',
       body: formData
     })

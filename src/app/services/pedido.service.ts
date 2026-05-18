@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment.prod';
 
 export interface ItemCarritoDTO {
   productoBaseId: number;
@@ -20,7 +21,7 @@ export interface CrearPedidoCarritoDTO {
 @Injectable({ providedIn: 'root' })
 export class PedidoService {
   private http = inject(HttpClient);
-  private readonly API = 'http://localhost:8080/api/pedidos';
+  private readonly API = `${environment.apiUrl}/api/pedidos`;
 
   crearDesdeCarrito(dto: CrearPedidoCarritoDTO): Observable<any[]> {
     const token = localStorage.getItem('token');

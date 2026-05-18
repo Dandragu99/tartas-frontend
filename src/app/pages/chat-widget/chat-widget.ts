@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { environment } from '../../../environments/environment.prod';
 
 @Component({
   selector: 'app-chat-widget',
@@ -31,7 +32,7 @@ export class ChatWidget {
     this.cargando = true;
     this.cdr.detectChanges();
 
-    this.http.post<string>('http://localhost:8080/api/chat', {
+    this.http.post<string>(`${environment.apiUrl}/api/chat`, {
       mensaje: texto,
       historial: this.mensajes.map(m => ({
         role: m.tipo === 'user' ? 'user' : 'assistant',

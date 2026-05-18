@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ProductoBase } from '../../../../models/producto-base.model';
 import { ProductoService } from '../../../../services/producto.service';
+import { environment } from '../../../../../environments/environment.prod';
 
 type CampoImagen = 'imgPaso1' | 'imgPaso2' | 'imgPaso3' | 'imgPaso4' | 'imgPaso5';
 
@@ -50,14 +51,14 @@ export class ProductAdminPage implements OnInit {
     }
 
     if (ruta.startsWith('uploads/')) {
-      return 'http://localhost:8080/' + ruta;
+      return `${environment.apiUrl}/` + ruta;
     }
 
     if (ruta.startsWith('/uploads/')) {
-      return 'http://localhost:8080' + ruta;
+      return `${environment.apiUrl}` + ruta;
     }
 
-    return 'http://localhost:8080/' + ruta;
+    return `${environment.apiUrl}/` + ruta;
   }
 
   guardarProducto() {
@@ -82,7 +83,7 @@ export class ProductAdminPage implements OnInit {
     const formData = new FormData();
     formData.append('file', file);
 
-    fetch('http://localhost:8080/api/upload', {
+    fetch('http://${environment.apiUrl}/api/upload', {
       method: 'POST',
       body: formData
     })
