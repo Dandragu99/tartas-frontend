@@ -1,6 +1,7 @@
 import { DatePipe, DecimalPipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, inject, OnInit, signal } from '@angular/core';
+import { environment } from '../../../../../environments/environment.prod';
 
 
 const ESTADOS = ['PENDIENTE', 'EN_PROCESO', 'ENVIADO', 'ENTREGADO'];
@@ -31,7 +32,7 @@ export class PedidosAdminPage implements OnInit {
 
   cargarPedidos() {
     this.cargando.set(true);
-    this.http.get<PedidoAdmin[]>('http://localhost:8080/api/pedidos/all')
+    this.http.get<PedidoAdmin[]>(`${environment.apiUrl}/api/pedidos/all`)
       .subscribe({
         next: (data) => { this.pedidos.set(data); this.cargando.set(false); },
         error: () => this.cargando.set(false)
@@ -60,7 +61,7 @@ export class PedidosAdminPage implements OnInit {
 
   private cambiarEstado(pedido: PedidoAdmin, nuevoEstado: string) {
     this.http.patch<PedidoAdmin>(
-      `http://localhost:8080/api/pedidos/${pedido.idPedido}/estado`,
+      `${environment.apiUrl}/api/pedidos/${pedido.idPedido}/estado`,
       { estado: nuevoEstado }
     ).subscribe({
       next: () => {

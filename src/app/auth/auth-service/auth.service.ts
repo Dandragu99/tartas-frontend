@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { inject, Injectable, signal } from "@angular/core";
 import { Observable, tap } from "rxjs";
 import { CartService } from '../../pages/cart/cart.service/CartService';
+import { environment } from "../../../environments/environment.prod";
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -9,6 +10,8 @@ export class AuthService {
   private _user = signal<{ nombre: string; rol: string; id: number } | null>(null);
   private http = inject(HttpClient);
   private cartService = inject(CartService);
+
+  private readonly API = `${environment.apiUrl}/auth`;
 
   readonly user = this._user.asReadonly();
 
@@ -20,12 +23,13 @@ export class AuthService {
       this.cartService.setUsuario(userData.id);
     }
   }
+
   getUsuarioId(): number | null {
     return this._user()?.id ?? null;
   }
 
   login(credentials: any): Observable<any> {
-    return this.http.post<any>('http://localhost:8080/auth/login', credentials).pipe(
+    return this.http.post<any>(`${this.API}/login`, credentials).pipe(
       tap(response => {
         const payload = JSON.parse(atob(response.token.split('.')[1]));
         const userData = { nombre: payload.sub, rol: payload.rol, id: payload.id };
@@ -35,21 +39,18 @@ export class AuthService {
         localStorage.setItem('token', response.token);
 
         this.cartService.setUsuario(userData.id);
-
       })
     );
   }
 
   logout() {
-    console.log('Antes del logout:', localStorage.getItem('currentUser'));
     this._user.set(null);
     localStorage.removeItem('currentUser');
     localStorage.removeItem('token');
     this.cartService.setUsuario(null);
-    console.log('Después del logout:', localStorage.getItem('currentUser'));
   }
 
   register(body: { username: string; email: string; nombreCompleto: string; telefono: string; password: string; }): Observable<any> {
-    return this.http.post<any>('http://localhost:8080/auth/register', body);
+    return this.http.post<any>(`${this.API}/register`, body);
   }
 }

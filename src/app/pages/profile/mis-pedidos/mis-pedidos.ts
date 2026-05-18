@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, inject, signal } from '@angular/core';
 import { AuthService } from '../../../auth/auth-service/auth.service';
 import { CurrencyPipe, DatePipe, DecimalPipe } from '@angular/common';
+import { environment } from '../../../../environments/environment.prod';
 
 @Component({
   selector: 'app-mis-pedidos',
@@ -25,7 +26,7 @@ export class MisPedidos {
 
   ngOnInit() {
     const usuarioId = this.auth.getUsuarioId();
-    this.http.get<PedidoDTO[]>(`http://localhost:8080/api/pedidos/usuario/${usuarioId}`)
+    this.http.get<PedidoDTO[]>(`${environment.apiUrl}/api/pedidos/usuario/${usuarioId}`)
       .subscribe({
         next: (data) => { this.pedidos.set(data); this.cargando.set(false); },
         error: () => this.cargando.set(false)

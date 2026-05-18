@@ -8,6 +8,11 @@ export const routes: Routes = [
     path: '',
     component: PublicLayout,
     children: [
+      {
+        path: '',
+        redirectTo: 'inicio',
+        pathMatch: 'full'
+      },
       { path: 'catalogo',        loadComponent: () => import('./pages/catalogo.component/catalogo.component').then(m => m.CatalogoComponent) },
       { path: 'personalizar/:id',loadComponent: () => import('./pages/catalogo.component/configurador/configurador.component/configurador.component').then(m => m.ConfiguradorComponent) },
       { path: 'inicio',          loadComponent: () => import('./pages/inicio/inicio').then(m => m.Inicio) },

@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../auth/auth-service/auth.service';
 import { CommonModule } from '@angular/common';
 import { MisPedidos } from './mis-pedidos/mis-pedidos';
+import { environment } from '../../../environments/environment.prod';
 
 @Component({
   selector: 'app-profile',
@@ -34,7 +35,7 @@ export class Profile implements OnInit {
     const id = this.auth.user()?.id;
     if (!id) { this.router.navigate(['/login']); return; }
 
-    this.http.get<UserProfile>(`http://localhost:8080/usuarios/${id}`).subscribe({
+    this.http.get<UserProfile>(`http://${environment.apiUrl}/usuarios/${id}`).subscribe({
       next: (u) => {
         this.usuario.set(u);
         this.form.patchValue({ nombreCompleto: u.nombreCompleto, telefono: u.telefono });
@@ -64,7 +65,7 @@ export class Profile implements OnInit {
     const id = this.usuario()!.id;
     const body = this.form.value;
 
-    this.http.put<UserProfile>(`http://localhost:8080/usuarios/${id}`, body).subscribe({
+    this.http.put<UserProfile>(`${environment.apiUrl}/usuarios/${id}`, body).subscribe({
       next: (updated) => {
         this.usuario.set(updated);
         this.editando.set(false);

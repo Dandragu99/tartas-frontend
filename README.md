@@ -53,7 +53,7 @@ http://localhost:4200/
 Make sure the backend (Spring Boot) is running:
 
 ```
-http://localhost:8080
+http://${environment.apiUrl}
 ```
 
 The frontend consumes API endpoints such as:

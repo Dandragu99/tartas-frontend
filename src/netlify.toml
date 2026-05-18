@@ -1,0 +1,6 @@
+[build]
+  command = "echo 'export const environment = { production: false, mapboxToken: \"dummy\" };' > src/environments/environment.ts && sed -i 's/%%MAPBOX_TOKEN%%/$MAPBOX_TOKEN/g' src/environments/environment.prod.ts && npx ng build --configuration production"
+  publish = "dist/front-bakery/browser"
+
+[build.environment]
+  NODE_VERSION = "20"
