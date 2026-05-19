@@ -35,7 +35,7 @@ export class Profile implements OnInit {
     const id = this.auth.user()?.id;
     if (!id) { this.router.navigate(['/login']); return; }
 
-    this.http.get<UserProfile>(`http://${environment.apiUrl}/usuarios/${id}`).subscribe({
+    this.http.get<UserProfile>(`${environment.apiUrl}/usuarios/${id}`).subscribe({
       next: (u) => {
         this.usuario.set(u);
         this.form.patchValue({ nombreCompleto: u.nombreCompleto, telefono: u.telefono });
