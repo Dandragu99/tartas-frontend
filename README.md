@@ -104,7 +104,7 @@ Before running the frontend locally, make sure the backend application is also r
 Clone the repository:
 
 ```bash
-git clone https://github.com/Dandragu99/front-tartas.git
+git clone https://github.com/Dandragu99/tartas-frontend.git
 ```
 
 Enter the project folder:
