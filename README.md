@@ -61,8 +61,6 @@ The complete project is divided into:
 
 Some screenshots of the application:
 
-## 📸 Screenshots
-
 ### Homepage
 
 ![Homepage](docs/images/Bakery-1.png)
