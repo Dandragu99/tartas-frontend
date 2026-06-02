@@ -1,17 +1,33 @@
-# 🎂 Frontend - Custom Cake E-commerce
+# 🎂 Tartas Frontend - Custom Cake E-commerce
 
-This project was generated with Angular CLI version 21 and is part of a full-stack application for designing personalized cakes.
+Frontend application developed with Angular as part of a full-stack e-commerce project for personalized cakes.
+
+This project was created as a personal/family-oriented application and was also used as my final project for DAM (Desarrollo de Aplicaciones Multiplataforma). The project was presented and approved with a final grade of 8.1.
 
 ---
 
 ## 🚀 Overview
 
-Frontend application where users can:
+Tartas Frontend is the client-side application of a custom cake e-commerce platform. The goal of the project is to provide users with an intuitive interface where they can explore products, customize cakes, manage their profile and follow the status of their orders.
 
-* Select cake base, fillings, and extras
-* Visualize the product dynamically
-* Interact with a modern UI
-* Connect with a REST API backend
+The application is connected to a Spring Boot REST API backend and includes different user roles, such as regular users and administrators.
+
+---
+
+## ✨ Main Features
+
+* Product catalogue visualization.
+* Custom cake configuration flow.
+* User registration and login.
+* User profile section.
+* Shopping and order flow.
+* Order status timeline for customers.
+* Administrator dashboard.
+* Product creation, editing and deletion.
+* Order management from the admin panel.
+* AI chatbot integrated into the user interface.
+* Responsive and modern UI design.
+* Connection with a Spring Boot REST API.
 
 ---
 
@@ -19,22 +35,95 @@ Frontend application where users can:
 
 * Angular 21
 * TypeScript
-* Tailwind CSS + daisyUI
-* RxJS / Signals
+* Tailwind CSS
+* daisyUI
+* RxJS
+* Angular Signals
+* REST API integration
+* Git / GitHub
+
+---
+
+## 🧩 Full-Stack Architecture
+
+This repository contains only the frontend part of the application.
+
+The complete project is divided into:
+
+* Frontend: Angular application.
+* Backend: Spring Boot REST API.
+* Database: SQL database.
+* Deployment: Railway / external hosting environment.
 
 ---
 
 ## 📸 Screenshots
 
-*(Add 2–3 images here when ready)*
+Some screenshots of the application:
 
-> Example: product selection, customization flow, homepage
+* Homepage and main navigation.
+* Product catalogue.
+* User registration form.
+* User profile.
+* Admin dashboard.
+* Product administration.
+* Order timeline.
+* AI chatbot integration.
+
+> Screenshots are available in the repository media section / documentation folder.
 
 ---
 
-## ⚙️ Development server
+## 🔗 Backend Connection
 
-To start a local development server, run:
+The frontend consumes data from the backend REST API.
+
+Some example endpoints used by the application:
+
+```bash
+/api/productos-base
+/api/ingredientes
+/api/pedidos
+/api/usuarios
+```
+
+The backend URL is configured through the Angular environment files.
+
+Example:
+
+```ts
+environment.apiUrl
+```
+
+Before running the frontend locally, make sure the backend application is also running.
+
+---
+
+## 📦 Installation
+
+Clone the repository:
+
+```bash
+git clone https://github.com/Dandragu99/front-tartas.git
+```
+
+Enter the project folder:
+
+```bash
+cd front-tartas
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+---
+
+## ⚙️ Development Server
+
+To start the local development server, run:
 
 ```bash
 ng serve
@@ -42,52 +131,23 @@ ng serve
 
 Then open your browser at:
 
-```
-http://localhost:4200/
-```
-
----
-
-## 🔗 Backend connection
-
-Make sure the backend (Spring Boot) is running:
-
-```
-http://${environment.apiUrl}
-```
-
-The frontend consumes API endpoints such as:
-
-```
-/api/productos-base
-/api/ingredientes
-```
-
----
-
-## 📦 Installation
-
-Clone the repository and install dependencies:
-
 ```bash
-git clone https://github.com/Dandragu99/front-tartas.git
-cd front-tartas
-npm install
+http://localhost:4200/
 ```
 
 ---
 
 ## 🏗️ Build
 
-To build the project:
+To build the project for production:
 
 ```bash
 ng build
 ```
 
-The build output will be stored in:
+The build output will be generated in the following folder:
 
-```
+```bash
 dist/
 ```
 
@@ -95,7 +155,7 @@ dist/
 
 ## 🧪 Testing
 
-Run unit tests:
+To run unit tests:
 
 ```bash
 ng test
@@ -105,15 +165,23 @@ ng test
 
 ## 📌 Project Status
 
-🚧 Currently in development
-New features and improvements are continuously being added.
+Project completed as a final DAM project / TFG and presented with a final grade of 8.1.
+
+The application is currently considered a portfolio project, but it may continue evolving with improvements such as better UI details, additional admin features, payment integration or production deployment adjustments.
 
 ---
 
-## ✨ Notes
+## 🎯 Purpose of the Project
 
-* Uses Angular signals for reactive state
-* UI styled with Tailwind + daisyUI
-* Designed as part of a full-stack portfolio project
+The main purpose of this project was to build a complete full-stack application, applying knowledge of frontend development, backend integration, database management, authentication, user roles, deployment and project documentation.
+
+It was also designed with the idea of becoming a possible real e-commerce solution for a family custom cake business in the future.
 
 ---
+
+## 👨‍💻 Author
+
+Developed by **Danut Dragu**.
+
+* GitHub: [Dandragu99](https://github.com/Dandragu99)
+* LinkedIn: [Danut Dragu](https://www.linkedin.com/in/dandragu99/)
