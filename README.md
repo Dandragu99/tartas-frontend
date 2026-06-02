@@ -61,14 +61,31 @@ The complete project is divided into:
 
 Some screenshots of the application:
 
-* Homepage and main navigation.
-* Product catalogue.
-* User registration form.
-* User profile.
-* Admin dashboard.
-* Product administration.
-* Order timeline.
-* AI chatbot integration.
+## 📸 Screenshots
+
+### Homepage
+
+![Homepage](docs/images/Bakery-1.png)
+
+### Product Catalogue
+
+![Product Catalogue](docs/images/Bakery-2.png)
+
+### Admin Dashboard
+
+![Admin Dashboard](docs/images/Bakery-6.png)
+
+### Product Management
+
+![Product Management](docs/images/Bakery-7.png)
+
+### Order Timeline
+
+![Order Timeline](docs/images/Bakery-4.png)
+
+### AI Chatbot
+
+![AI Chatbot](docs/images/Bakery-5.png)
 
 > Screenshots are available in the repository media section / documentation folder.
 
