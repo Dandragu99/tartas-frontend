@@ -110,7 +110,7 @@ git clone https://github.com/Dandragu99/tartas-frontend.git
 Enter the project folder:
 
 ```bash
-cd front-tartas
+cd tartas-frontend
 ```
 
 Install dependencies:
