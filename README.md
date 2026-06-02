@@ -2,7 +2,7 @@
 
 Frontend application developed with Angular as part of a full-stack e-commerce project for personalized cakes.
 
-This project was created as a personal/family-oriented application and was also used as my final project for DAM (Desarrollo de Aplicaciones Multiplataforma). The project was presented and approved with a final grade of 8.1.
+This project was created as a personal and family-oriented application for a custom cake business idea. It was also used as my final degree project, allowing me to apply full-stack development concepts in a practical scenario.
 
 ---
 
@@ -85,7 +85,7 @@ Some screenshots of the application:
 
 ![AI Chatbot](docs/images/Bakery-5.png)
 
-> Screenshots are available in the repository media section / documentation folder.
+> Additional screenshots are available in the `docs/images` folder.
 
 ---
 
