@@ -168,15 +168,7 @@ dist/
 
 ---
 
-## 🧪 Testing
 
-To run unit tests:
-
-```bash
-ng test
-```
-
----
 
 ## 📌 Project Status
 
