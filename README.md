@@ -191,4 +191,5 @@ It was also designed with the idea of becoming a possible real e-commerce soluti
 Developed by **Danut Dragu**.
 
 * GitHub: [Dandragu99](https://github.com/Dandragu99)
+* Github tartas-backend: [Dandragu99](https://github.com/Dandragu99/tartas-backend) 
 * LinkedIn: [Danut Dragu](https://www.linkedin.com/in/dandragu99/)
